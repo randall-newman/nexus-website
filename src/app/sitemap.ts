@@ -1,0 +1,68 @@
+import { DEFAULT_URL } from '@/src/utils/generateMetaData';
+import type { MetadataRoute } from 'next';
+
+const SITE_URL = DEFAULT_URL.replace(/\/$/, '');
+
+const routes = [
+  '/',
+  '/about',
+  '/pricing',
+  '/pricing/team',
+  '/downloads',
+  '/downloads/mac',
+  '/downloads/windows',
+  '/downloads/mobile',
+  '/features',
+  '/features/ai-file-chat',
+  '/features/academic-research',
+  '/features/essay-writer',
+  '/features/artifacts',
+  '/products',
+  '/products/chat',
+  '/legal/privacy-policy',
+  '/legal/terms-of-service',
+  '/blog',
+  '/brand',
+  '/enterprise',
+  '/trust',
+  '/contact-sales',
+  '/features/presentation',
+  '/features/skills',
+  '/features/plagiarism-checker',
+  '/features/image',
+  '/features/audio',
+  '/features/video',
+  '/features/essay-writer',
+  '/pricing/chatbot',
+  '/login',
+  '/signup',
+  '/help',
+  '/solutions',
+  '/solutions/education',
+  '/solutions/financial-services',
+  '/solutions/legal',
+  '/solutions/sales',
+  '/solutions/marketing',
+  '/solutions/hr',
+  '/solutions/technology',
+  '/solutions/healthcare',
+  '/solutions/small-business',
+  '/solutions/government',
+  '/solutions/nonprofits',
+  '/solutions/for-businesses',
+  '/solutions/for-creators',
+  '/solutions/for-enterprise',
+  '/solutions/for-marketers',
+  '/solutions/for-solopreneurs',
+  '/solutions/for-students',
+  '/solutions/for-teams',
+];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return routes.map((route) => ({
+    url: `${SITE_URL}${route}`,
+    lastModified: new Date(),
+    changeFrequency: route === '/' ? 'daily' : 'weekly',
+    priority: route === '/' ? 1 : 0.8,
+  }));
+}

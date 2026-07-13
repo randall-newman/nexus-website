@@ -1,0 +1,35 @@
+# Nexus AI
+
+> Nexus AI is an all-in-one AI workspace for writing, research, chat, and creative work. Built by Verbosec, it turns ideas into finished documents, decks, images and code instead of stopping at a chat reply.
+
+## Product
+
+- [Homepage](https://mynexusai.com/): What Nexus AI is and who it's for.
+- [Products](https://mynexusai.com/products): How Nexus AI is organised — Chat, Creative Studio, Code, Artifacts.
+- [Chat](https://mynexusai.com/products/chat): The core chat surface, with Folders and model routing.
+- [Features overview](https://mynexusai.com/features): Every feature/use case Nexus AI supports.
+- [AI File Chat](https://mynexusai.com/features/ai-file-chat): Chat with uploaded PDFs, Word docs and spreadsheets, with sourced answers.
+- [Academic Research](https://mynexusai.com/features/academic-research): Research-to-document workflow with citations (APA/MLA/Chicago).
+- [AI Essay Writer](https://mynexusai.com/features/ai-essay-writer): Essay writing with an academic-integrity-first framing.
+- [Artifacts](https://mynexusai.com/features/artifacts): Preview, edit and export AI-generated documents and slides.
+
+## Pricing
+
+- [Pricing](https://mynexusai.com/pricing): Free ($0), Premium (~$20/mo, $16/mo annual) and Ultimate ($100/mo, $80/mo annual) plans.
+- [Team Pricing](https://mynexusai.com/pricing/team): $30 per seat per month, 2-seat minimum.
+
+## Downloads
+
+- [Downloads](https://mynexusai.com/downloads): All supported platforms.
+- [Mac](https://mynexusai.com/downloads/mac), [Windows](https://mynexusai.com/downloads/windows), [Mobile (iOS/Android)](https://mynexusai.com/downloads/mobile).
+
+## Company
+
+- [About](https://mynexusai.com/about): Who builds Nexus AI (Verbosec) and why.
+- [Contact](https://mynexusai.com/contact)
+- [Blog](https://mynexusai.com/blog)
+
+## Legal
+
+- [Privacy Policy](https://mynexusai.com/legal/privacy-policy)
+- [Terms of Service](https://mynexusai.com/legal/terms-of-service)
