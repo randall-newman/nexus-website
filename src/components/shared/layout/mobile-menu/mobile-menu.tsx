@@ -4,6 +4,7 @@ import MenuCloseButton from '@/src/components/shared/layout/mobile-menu/menu-clo
 import MobileMenuItem from '@/src/components/shared/layout/mobile-menu/mobile-menu-item';
 import { useMobileMenuContext } from '@/src/context/MobileMenuContext';
 import { ButtonPrimary } from '@/src/components/shared/ui/button';
+import { federatedSignOut } from '@/src/utils/federated-sign-out';
 import { cn } from '@/src/utils/cn';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -27,6 +28,10 @@ const MobileMenu = ({ menuData }: { menuData: MobileMenuGroup[] }) => {
   const { isOpen, closeMenu } = useMobileMenuContext();
   const { status } = useSession();
   const pathname = usePathname();
+  const isAuthenticated = status === 'authenticated';
+
+  // Session-aware list: signed-in users see Sign out instead of Login.
+  const visibleMenu = isAuthenticated ? menuData.filter((item) => item.id !== 'login') : menuData;
 
   const isActiveLink = (href: string) =>
     pathname === href || (href !== '#' && pathname.startsWith(href + '/'));
@@ -51,7 +56,7 @@ const MobileMenu = ({ menuData }: { menuData: MobileMenuGroup[] }) => {
 
         <div className="scroll-bar mt-6 h-[85vh] w-full overflow-x-hidden overflow-y-auto pb-10">
           <ul className="space-y-2">
-            {menuData.map((item) => (
+            {visibleMenu.map((item) => (
               <MobileMenuItem
                 key={item.id}
                 id={item.id}
@@ -80,6 +85,20 @@ const MobileMenu = ({ menuData }: { menuData: MobileMenuGroup[] }) => {
                 })}
               </MobileMenuItem>
             ))}
+            {isAuthenticated && (
+              <li className="space-y-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    closeMenu();
+                    federatedSignOut();
+                  }}
+                  className="font-sora text-tagline-2 text-secondary/90 hover:text-secondary block w-full cursor-pointer py-2.5 text-left font-normal"
+                >
+                  Sign out
+                </button>
+              </li>
+            )}
           </ul>
 
           {/* Mirrors the desktop header CTA, placed below the Login item:

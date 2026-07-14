@@ -2,7 +2,8 @@
 
 import { ButtonPrimary } from '@/src/components/shared/ui/button';
 import { ExternalLink, LogOut } from 'lucide-react';
-import { signOut, useSession } from 'next-auth/react';
+import { federatedSignOut } from '@/src/utils/federated-sign-out';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
@@ -29,22 +30,6 @@ function Avatar({ imageUrl, name, size }: { imageUrl?: string | null; name: stri
       {name[0]?.toUpperCase() ?? 'U'}
     </span>
   );
-}
-
-async function federatedSignOut() {
-  // End the Zitadel session too (SSO with app.mynexusai.com), not just the
-  // local NextAuth cookie — otherwise the next login silently auto-signs-in.
-  let logoutUrl = '/';
-  try {
-    const res = await fetch('/api/auth/federated-logout');
-    if (res.ok) {
-      logoutUrl = (await res.json()).url ?? '/';
-    }
-  } catch {
-    // Fall back to local-only sign-out.
-  }
-  await signOut({ redirect: false });
-  window.location.href = logoutUrl;
 }
 
 export function NavbarAuth() {
