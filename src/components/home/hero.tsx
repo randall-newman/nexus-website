@@ -148,7 +148,7 @@ function HeroPromptBox() {
             onBlur={() => setFocused(false)}
             onKeyDown={handleKeyDown}
             placeholder={PLACEHOLDER_EXAMPLES[placeholderIdx]}
-            className="text-secondary placeholder:text-secondary/40 block w-full resize-none bg-transparent px-5 pt-5 pb-3 text-[15px] leading-relaxed outline-none [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent"
+            className="text-secondary placeholder:text-secondary/40 block w-full resize-none bg-transparent px-5 pt-5 pb-3 text-[15px] leading-relaxed outline-none placeholder:overflow-hidden placeholder:text-ellipsis placeholder:whitespace-nowrap [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent"
             style={{ maxHeight: '220px', overflowY: 'auto', scrollbarWidth: 'none' }}
           />
 
@@ -516,19 +516,20 @@ const Hero = () => {
                 <TextReveal delay={0.1}>
                   {/* Size capped at heading-2 below 1440px so short laptop
                       viewports (1366×768, 1536×864) keep the full hero —
-                      including the loved-by row — above the fold. Block spans
-                      force the same two-line break on every device. */}
+                      including the loved-by row — above the fold. */}
                   <h1 className="text-heading-4 sm:text-heading-3 md:text-heading-2 lp:text-heading-1 mx-auto max-w-[1150px] font-bold">
-                    <span className="block">Write, research, and create.</span>
-                    <span className="block">Faster than ever before.</span>
+                    Write, research, and create. Faster than ever before.
                   </h1>
                 </TextReveal>
-                <TextReveal delay={0.2}>
-                  <p className="text-tagline-new mx-auto max-w-[700px]">
+                {/* RevealAnimation (not TextReveal): SplitText freezes line
+                    breaks at mount, which re-wraps mid-sentence on mobile
+                    resizes. This keeps the paragraph one natural text flow. */}
+                <RevealAnimation delay={0.2}>
+                  <p className="text-tagline-1 md:text-tagline-new mx-auto max-w-[700px]">
                     Nexus AI is your all-in-one AI platform for writing, research, design, and
                     planning. Turn ideas into finished documents, decks, images, code, and beyond.
                   </p>
-                </TextReveal>
+                </RevealAnimation>
               </div>
 
               <RevealAnimation delay={0.3} instant>
@@ -549,7 +550,7 @@ const Hero = () => {
                     key={avatar.src}
                     className="transition-transform duration-300 ease-out hover:-translate-y-1"
                   >
-                    <AvatarItem className="outline-background-2 size-11 overflow-hidden rounded-full outline-2">
+                    <AvatarItem className="outline-background-2 size-9 overflow-hidden rounded-full outline-2 md:size-11">
                       <Image
                         src={avatar}
                         alt={`avatar-${index + 1}`}
@@ -560,7 +561,7 @@ const Hero = () => {
                 ))}
               </AvatarReveal>
               <RevealAnimation delay={0.3} direction="right" offset={50} instant>
-                <p className="text-tagline-2 text-background-14/80 shrink-0">
+                <p className="text-tagline-3 md:text-tagline-2 text-background-14/80 shrink-0">
                   <LovedBySentence />
                 </p>
               </RevealAnimation>
