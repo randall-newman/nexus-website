@@ -12,9 +12,18 @@ class ZitadelApiError extends Error {
   }
 }
 
+// Missing env config — unlike other API errors, safe to surface to callers
+// without leaking anything about a specific account.
+class ZitadelConfigError extends ZitadelApiError {
+  constructor() {
+    super('Zitadel service credentials are not configured', 500);
+    this.name = 'ZitadelConfigError';
+  }
+}
+
 async function zitadelFetch(path: string, init: RequestInit) {
   if (!ZITADEL_DOMAIN || !SERVICE_USER_TOKEN) {
-    throw new ZitadelApiError('Zitadel service credentials are not configured', 500);
+    throw new ZitadelConfigError();
   }
 
   const res = await fetch(`${ZITADEL_DOMAIN}${path}`, {
@@ -89,4 +98,4 @@ export async function triggerPasswordReset(userId: string): Promise<void> {
   });
 }
 
-export { ZitadelApiError };
+export { ZitadelApiError, ZitadelConfigError };

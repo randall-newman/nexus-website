@@ -56,7 +56,9 @@ const SignUp = () => {
       // Account created — hand off to Zitadel's hosted login (pre-filled
       // with the email) so the browser establishes the SSO session cookie
       // that app.mynexusai.com relies on.
-      await signIn('verbosec-account', { callbackUrl: '/', login_hint: email });
+      // login_hint must go in signIn's third argument (authorizationParams) —
+      // extra keys in the second argument are not forwarded to the authorize URL.
+      await signIn('verbosec-account', { callbackUrl: '/' }, { login_hint: email });
     } catch {
       setErrorMsg('Network error. Please check your connection and try again.');
       setLoading(false);

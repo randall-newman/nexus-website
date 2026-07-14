@@ -27,7 +27,9 @@ const Login = () => {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
-    await signIn('verbosec-account', { callbackUrl: '/', login_hint: email });
+    // login_hint must go in signIn's third argument (authorizationParams) —
+    // extra keys in the second argument are not forwarded to the authorize URL.
+    await signIn('verbosec-account', { callbackUrl: '/' }, { login_hint: email });
   }
 
   return (

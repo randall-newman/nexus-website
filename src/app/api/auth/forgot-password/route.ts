@@ -1,4 +1,4 @@
-import { findUserIdByEmail, triggerPasswordReset } from '@/src/lib/zitadel';
+import { findUserIdByEmail, triggerPasswordReset, ZitadelConfigError } from '@/src/lib/zitadel';
 import { verifyTurnstile } from '@/src/utils/turnstile';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -37,6 +37,15 @@ export async function POST(request: NextRequest) {
       await triggerPasswordReset(userId);
     }
   } catch (error) {
+    // Missing server config is independent of the submitted email, so
+    // surfacing it leaks nothing — and a fake success here would hide a
+    // completely broken flow.
+    if (error instanceof ZitadelConfigError) {
+      return NextResponse.json(
+        { error: 'Password reset is not available right now. Please try again later.' },
+        { status: 503 }
+      );
+    }
     // Still return a generic success below — never leak account existence.
     console.error('Password reset failed', error);
   }
