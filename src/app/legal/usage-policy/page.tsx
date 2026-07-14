@@ -214,7 +214,7 @@ export default function UsagePolicyPage() {
               </a>
               . We review all reports and will follow up within two business days.
             </p>
-            <Link href="/legal/terms-of-service" className="text-secondary text-tagline-2 underline">
+            <Link href="/legal/terms" className="text-secondary text-tagline-2 underline">
               Read the full Terms of Service
             </Link>
           </RevealAnimation>

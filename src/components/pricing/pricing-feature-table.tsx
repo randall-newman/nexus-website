@@ -27,19 +27,21 @@ const tableData: TableSection[] = [
     rows: [
       { label: 'Daily chat messages',       free: 'Limited',          premium: 'Unlimited',         ultimate: 'Unlimited' },
       { label: 'AI model quality',          free: 'Standard',         premium: 'Advanced',           ultimate: 'Frontier' },
-      { label: 'Research Mode',             free: false,              premium: '20 queries/month',   ultimate: 'Unlimited' },
+      { label: 'Research Mode',             free: false,              premium: '100 queries/month',  ultimate: 'Unlimited' },
       { label: 'File Chat',                 free: 'Limited',          premium: true,                 ultimate: true },
       { label: 'File uploads',              free: '2 files (5 MB)',   premium: 'Unlimited (25 MB)',  ultimate: 'Unlimited (100 MB)' },
       { label: 'Folders',                   free: '3',                premium: 'Unlimited',          ultimate: 'Unlimited' },
+      { label: 'Expanded memory',           free: false,              premium: true,                 ultimate: true },
+      { label: 'Voice mode',                free: false,              premium: true,                 ultimate: true },
     ],
   },
   {
     title: 'Writing & Research',
     rows: [
-      { label: 'Nexus AI Academic',         free: 'Preview',          premium: 'Full access',        ultimate: 'Unlimited' },
-      { label: 'AI Essay Writer',           free: 'Preview',          premium: true,                 ultimate: true },
-      { label: 'Citation generator',        free: 'Preview',          premium: true,                 ultimate: true },
-      { label: 'Plagiarism checker',        free: 'Preview',          premium: true,                 ultimate: true },
+      { label: 'Nexus AI Academic',         free: false,              premium: 'Full access',        ultimate: 'Unlimited' },
+      { label: 'AI Essay Writer',           free: false,              premium: true,                 ultimate: true },
+      { label: 'Citation generator',        free: false,              premium: true,                 ultimate: true },
+      { label: 'Plagiarism checker',        free: false,              premium: true,                 ultimate: true },
       { label: 'Literature review',         free: false,              premium: true,                 ultimate: true },
     ],
   },
@@ -48,6 +50,7 @@ const tableData: TableSection[] = [
     rows: [
       { label: 'Creative Studio credits',   free: false,              premium: '100/month',          ultimate: '750/month' },
       { label: 'AI Image Generator',        free: false,              premium: true,                 ultimate: true },
+      { label: 'Advanced image generation', free: false,              premium: false,                ultimate: true },
       { label: 'AI Audio Generator',        free: false,              premium: true,                 ultimate: true },
       { label: 'AI Video Generator',        free: false,              premium: false,                ultimate: '50 videos/month' },
     ],
@@ -55,7 +58,7 @@ const tableData: TableSection[] = [
   {
     title: 'Code & Canvas',
     rows: [
-      { label: 'Code generation & review',  free: 'Preview',          premium: true,                 ultimate: true },
+      { label: 'Code generation & review',  free: false,              premium: true,                 ultimate: true },
       { label: 'CLI integration',           free: false,              premium: true,                 ultimate: true },
       { label: 'Canvas / Artifacts',        free: 'Preview',          premium: '200 Artifacts',      ultimate: 'Unlimited' },
       { label: 'Skills',                    free: false,              premium: '50 Skills',          ultimate: 'Unlimited' },
@@ -65,7 +68,7 @@ const tableData: TableSection[] = [
     title: 'Platform',
     rows: [
       { label: 'Watermark-free exports',    free: false,              premium: true,                 ultimate: true },
-      { label: 'AI Presentation Maker',     free: 'Preview',          premium: true,                 ultimate: true },
+      { label: 'AI Presentation Maker',     free: false,              premium: true,                 ultimate: true },
       { label: 'Meeting Notes',             free: 'Add-on',           premium: 'Add-on',             ultimate: 'Add-on' },
       { label: 'AI Chatbot',                free: 'Add-on',           premium: 'Add-on',             ultimate: 'Add-on' },
     ],
@@ -73,7 +76,7 @@ const tableData: TableSection[] = [
   {
     title: 'Support',
     rows: [
-      { label: 'Support type',              free: 'Community',        premium: 'Email',              ultimate: 'Priority' },
+      { label: 'Support type',              free: 'Community',        premium: 'Standard',           ultimate: 'Priority' },
       { label: 'Early feature access',      free: false,              premium: false,                ultimate: true },
     ],
   },

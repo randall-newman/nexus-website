@@ -90,11 +90,11 @@ export default function DeveloperConsolePage() {
 
         <p className="text-center text-xs text-[#5c6688]">
           By accessing the console, you agree to our{' '}
-          <Link href="/legal/terms-of-service" className="underline hover:text-[#8ab0f5]">
+          <Link href="/legal/terms" className="underline hover:text-[#8ab0f5]">
             Terms
           </Link>{' '}
           and{' '}
-          <Link href="/legal/privacy-policy" className="underline hover:text-[#8ab0f5]">
+          <Link href="/legal/privacy" className="underline hover:text-[#8ab0f5]">
             Privacy Policy
           </Link>
           .

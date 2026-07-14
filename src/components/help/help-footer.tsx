@@ -52,7 +52,7 @@ export default function HelpFooter() {
                   </Link>
                 </li>
                 <li><Link href="/pricing" className="hover:text-gray-900">Pricing</Link></li>
-                <li><Link href="/legal/privacy-policy" className="hover:text-gray-900">Privacy Policy</Link></li>
+                <li><Link href="/legal/privacy" className="hover:text-gray-900">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>

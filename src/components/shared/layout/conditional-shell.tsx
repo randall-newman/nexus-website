@@ -7,7 +7,7 @@ import { MobileMenuProvider } from '@/src/context/MobileMenuContext';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 
-const AUTH_PATHS = ['/login', '/signup', '/developers/console/login'];
+const AUTH_PATHS = ['/login', '/signup', '/forgot-password', '/developers/console/login'];
 const CUSTOM_LAYOUT_PATHS = ['/help'];
 
 export function ConditionalShell({ children }: { children: ReactNode }) {

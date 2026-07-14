@@ -90,11 +90,11 @@ export const footerNavColumns: FooterLinkColumn[] = [
   {
     title: 'Legal',
     links: [
-      { label: 'Privacy Policy', href: '/legal/privacy-policy' },
-      { label: 'Terms of Service', href: '/legal/terms-of-service' },
+      { label: 'Privacy Policy', href: '/legal/privacy' },
+      { label: 'Terms of Service', href: '/legal/terms' },
       { label: 'Usage Policy', href: '/legal/usage-policy' },
       { label: 'Affiliate Policy', href: '/legal/affiliate-policy' },
-      { label: 'Refund Policy', href: '/legal/refund-policy' },
+      { label: 'Refund Policy', href: '/legal/refunds' },
       { label: 'Your Privacy Choices', href: '#', privacyChoices: true },
     ],
   },

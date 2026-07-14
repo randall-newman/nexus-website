@@ -68,11 +68,11 @@ export const features: FeatureItem[] = [
   {
     title: 'AI Presentation / Slides',
     description: 'From idea to finished deck.',
-    href: '#',
+    href: '/features/presentation',
     theme: 'Creative and media',
     audiences: ['Creators', 'Professionals'],
     iconClass: 'ns-shape-6',
-    built: false,
+    built: true,
   },
   {
     title: 'AI File Chat',
@@ -95,11 +95,11 @@ export const features: FeatureItem[] = [
   {
     title: 'AI Memory',
     description: 'An AI that remembers what you told it.',
-    href: '#',
+    href: '/features/memory',
     theme: 'Productivity and memory',
     audiences: ['Professionals', 'Teams'],
     iconClass: 'ns-shape-9',
-    built: false,
+    built: true,
   },
   {
     title: 'Skills',
@@ -131,11 +131,11 @@ export const features: FeatureItem[] = [
   {
     title: 'Nexus AI for Chrome',
     description: 'The web, with Nexus AI built in.',
-    href: '#',
+    href: '/downloads/browser-extension',
     theme: 'Platform integrations',
     audiences: ['Professionals', 'Students'],
     iconClass: 'ns-shape-13',
-    built: false,
+    built: true,
   },
 ];
 

@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  redirect('/legal/terms-of-service');
+  redirect('/legal/terms');
 }

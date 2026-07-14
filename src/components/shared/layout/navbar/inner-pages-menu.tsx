@@ -48,8 +48,8 @@ const resourceLinks: InnerLink[] = [
 const supportLinks: InnerLink[] = [
   { label: 'Help Centre', href: '/help', icon: HelpIcon },
   { label: 'Brand', href: '/brand', icon: BrandIcon },
-  { label: 'Privacy Policy', href: '/legal/privacy-policy', icon: PrivacyIcon },
-  { label: 'Terms of Service', href: '/legal/terms-of-service', icon: TermsConditionsIcon },
+  { label: 'Privacy Policy', href: '/legal/privacy', icon: PrivacyIcon },
+  { label: 'Terms of Service', href: '/legal/terms', icon: TermsConditionsIcon },
 ];
 
 interface InnerPagesMenuProps {

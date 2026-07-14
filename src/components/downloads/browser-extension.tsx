@@ -709,7 +709,7 @@ const BrowserExtension = () => {
                 </p>
               </div>
               <div className="col-span-12 flex justify-center lg:col-span-3 lg:justify-end">
-                <Link href="/legal/privacy-policy">
+                <Link href="/legal/privacy">
                   <ButtonWhite textClassName="text-nowrap">Read our Privacy Policy</ButtonWhite>
                 </Link>
               </div>
