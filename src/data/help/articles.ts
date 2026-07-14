@@ -50,7 +50,7 @@ export const helpArticles: Article[] = [
     content: [
       { type: 'p', text: 'Creating a Nexus AI account takes less than two minutes and does not require a credit card. This guide walks you through every step.' },
       { type: 'h2', text: 'Step 1 — Go to the sign-up page' },
-      { type: 'p', text: 'Open your browser and visit app.mynexusai.com/signup. You can also reach it by clicking "Try for Free" on any page of the Nexus AI website.' },
+      { type: 'p', text: 'Open your browser and visit mynexusai.com/signup. You can also reach it by clicking "Try for Free" on any page of the Nexus AI website.' },
       { type: 'h2', text: 'Step 2 — Choose how to sign up' },
       { type: 'ul', items: [
         'Continue with Google — the fastest option if you already have a Google account',

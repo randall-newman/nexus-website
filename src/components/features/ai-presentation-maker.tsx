@@ -360,7 +360,7 @@ const AiPresentationMaker = () => {
                 </p>
               </TextReveal>
               <RevealAnimation delay={0.4} asChild={false} className="flex flex-wrap gap-3">
-                <Link href="https://app.mynexusai.com/signup" target="_blank" rel="noopener noreferrer">
+                <Link href="/signup">
                   <ButtonPrimary textClassName="text-center text-nowrap">
                     Start free
                   </ButtonPrimary>

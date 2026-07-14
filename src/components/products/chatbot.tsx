@@ -207,7 +207,7 @@ const plans = [
     bots: '1 chatbot',
     highlights: ['Website widget', 'WhatsApp and Facebook', 'Basic analytics', 'Email support'],
     cta: 'Start free trial',
-    href: 'https://app.mynexusai.com/signup',
+    href: '/signup',
     featured: false,
   },
   {
@@ -218,7 +218,7 @@ const plans = [
     bots: '5 chatbots',
     highlights: ['All channels included', 'Lead capture and CRM sync', 'Advanced analytics', 'Human handoff', 'Priority support'],
     cta: 'Start free trial',
-    href: 'https://app.mynexusai.com/signup',
+    href: '/signup',
     featured: true,
   },
   {
@@ -445,7 +445,7 @@ const ChatbotProduct = () => {
               </p>
             </TextReveal>
             <RevealAnimation delay={0.4} asChild={false} className="flex flex-wrap items-center justify-center gap-3">
-              <Link href="https://app.mynexusai.com/signup" target="_blank" rel="noopener noreferrer">
+              <Link href="/signup">
                 <ButtonPrimary textClassName="text-center text-nowrap">
                   Start free trial
                 </ButtonPrimary>

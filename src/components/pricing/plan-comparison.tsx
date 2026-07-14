@@ -34,7 +34,7 @@ const plans: Plan[] = [
     annualBilled: 0,
     description: 'Try Nexus AI with no commitment. No credit card required.',
     cta: 'Try for Free',
-    href: 'https://app.mynexusai.com/signup',
+    href: '/signup',
     rows: [
       'AI Chat (limited daily usage)',
       '3 Folders',
