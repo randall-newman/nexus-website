@@ -495,7 +495,7 @@ const Hero = () => {
                 </TextReveal>
                 <TextReveal delay={0.2}>
                   <p className="text-tagline-new mx-auto max-w-[700px]">
-                    Nexus AI is your all-in-one AI workspace for writing, research, design, and
+                    Nexus AI is your all-in-one AI platform for writing, research, design, and
                     planning. Turn ideas into finished documents, decks, images, code, and beyond.
                   </p>
                 </TextReveal>

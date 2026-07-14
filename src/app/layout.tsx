@@ -3,6 +3,7 @@ import { ConditionalShell } from "@/src/components/shared/layout/conditional-she
 import { SessionProvider } from "@/src/components/providers/session-provider";
 import { fontVariables } from "@/src/utils/font";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ReactNode, Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
@@ -49,6 +50,7 @@ export default function RootLayout({
           </ConditionalShell>
         </SessionProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
