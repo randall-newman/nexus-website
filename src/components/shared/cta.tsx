@@ -6,61 +6,29 @@ import { TextReveal } from '@/src/components/animation/text-reveal';
 import { BadgePrimary } from '@/src/components/shared/ui/badge';
 import { ButtonPrimary, ButtonWhite } from '@/src/components/shared/ui/button';
 import {
-  faAndroid,
-  faApple,
   faChrome,
-  faWindows,
+  faEdge,
+  faFirefoxBrowser,
+  faOpera,
+  faSafari,
 } from '@fortawesome/free-brands-svg-icons';
+import type { IconDefinition } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Download } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-type PlatformInfo = {
-  label: string;
-  href: string;
-  icon: React.ReactNode;
-};
+// The link stays on the Chrome Web Store for now — only the icon adapts.
+const EXTENSION_URL =
+  'https://chromewebstore.google.com/detail/megonkedidbhgokacgilpjmhlbbhanck';
 
-function detectPlatform(): PlatformInfo {
-  if (typeof navigator === 'undefined') {
-    return { label: 'Download', href: '/downloads', icon: <Download className="size-4" /> };
-  }
+function detectBrowserIcon(): IconDefinition {
   const ua = navigator.userAgent;
-  if (/iPhone|iPad|iPod/i.test(ua)) {
-    return {
-      label: 'Get on iOS',
-      href: '/downloads/mobile',
-      icon: <FontAwesomeIcon icon={faApple} className="size-4" />,
-    };
-  }
-  if (/Android/i.test(ua)) {
-    return {
-      label: 'Get on Android',
-      href: '/downloads/mobile',
-      icon: <FontAwesomeIcon icon={faAndroid} className="size-4" />,
-    };
-  }
-  if (/Mac/i.test(ua)) {
-    return {
-      label: 'Download for Mac',
-      href: '/downloads/mac',
-      icon: <FontAwesomeIcon icon={faApple} className="size-4" />,
-    };
-  }
-  if (/Win/i.test(ua)) {
-    return {
-      label: 'Download for Windows',
-      href: '/downloads/windows',
-      icon: <FontAwesomeIcon icon={faWindows} className="size-4" />,
-    };
-  }
-  return {
-    label: 'Get the extension',
-    href: 'https://chromewebstore.google.com/detail/megonkedidbhgokacgilpjmhlbbhanck',
-    icon: <FontAwesomeIcon icon={faChrome} className="size-4" />,
-  };
+  if (/Edg\//.test(ua)) return faEdge;
+  if (/OPR\/|Opera/.test(ua)) return faOpera;
+  if (/Firefox\//.test(ua)) return faFirefoxBrowser;
+  if (/Safari\//.test(ua) && !/Chrome|Chromium/.test(ua)) return faSafari;
+  return faChrome;
 }
 
 const SparkIcon = () => (
@@ -76,13 +44,12 @@ const SparkIcon = () => (
 );
 
 const CTA = () => {
-  const [platform, setPlatform] = useState<PlatformInfo | null>(null);
+  const [browserIcon, setBrowserIcon] = useState<IconDefinition>(faChrome);
 
   useEffect(() => {
-    // Detect platform client-side after mount (window is not available on server)
-    const p = detectPlatform();
+    // navigator is unavailable during SSR — detect after mount.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPlatform(p);
+    setBrowserIcon(detectBrowserIcon());
   }, []);
 
   return (
@@ -123,7 +90,7 @@ const CTA = () => {
               </div>
 
               <RevealAnimation delay={0.6} asChild={false} className="flex flex-wrap items-center justify-center gap-3">
-                <Link href="https://app.mynexusai.com/signup" target="_blank" rel="noopener noreferrer">
+                <Link href="/signup">
                   <ButtonPrimary
                     className="mx-auto md:mx-0 md:w-fit!"
                     textClassName="text-center text-nowrap max-sm:flex-1 max-sm:pr-8!"
@@ -136,23 +103,17 @@ const CTA = () => {
                   </ButtonPrimary>
                 </Link>
 
-                {platform && (
-                  <Link
-                    href={platform.href}
-                    target={platform.href.startsWith('http') ? '_blank' : undefined}
-                    rel={platform.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                <Link href={EXTENSION_URL} target="_blank" rel="noopener noreferrer">
+                  <ButtonWhite
+                    className="mx-auto md:mx-0 md:w-fit!"
+                    textClassName="text-center text-nowrap max-sm:flex-1 max-sm:pr-8!"
                   >
-                    <ButtonWhite
-                      className="mx-auto md:mx-0 md:w-fit!"
-                      textClassName="text-center text-nowrap max-sm:flex-1 max-sm:pr-8!"
-                    >
-                      <span className="flex items-center gap-2">
-                        {platform.icon}
-                        {platform.label}
-                      </span>
-                    </ButtonWhite>
-                  </Link>
-                )}
+                    <span className="flex items-center gap-2">
+                      <FontAwesomeIcon icon={browserIcon} className="size-4" />
+                      Get the Browser Extension
+                    </span>
+                  </ButtonWhite>
+                </Link>
               </RevealAnimation>
             </div>
 
