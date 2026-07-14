@@ -79,7 +79,9 @@ export async function findUserIdByEmail(email: string): Promise<string | null> {
       queries: [
         {
           emailQuery: {
-            email,
+            // Zitadel v2 field is emailAddress — sending "email" silently
+            // matches zero users instead of erroring.
+            emailAddress: email,
             method: 'TEXT_QUERY_METHOD_EQUALS',
           },
         },
