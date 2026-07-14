@@ -1,6 +1,6 @@
 'use client';
 
-import promoImage from '@/public/images/ns-img-422.jpg';
+import promoImage from '@/public/images/nexus-ai-download.jpg';
 import newArrowWhite from '@/public/images/icons/new-arrow-white.svg';
 import { BlogIcon, DownloadIcon, PrivacyIcon, TermsConditionsIcon } from '@/src/components/shared/icon/menu-icon';
 import { InnerPagesMenuLink } from '@/src/components/shared/layout/navbar/inner-pages-menu-link';
