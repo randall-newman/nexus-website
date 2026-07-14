@@ -171,8 +171,11 @@ All the variables are added here
   --team-ease-1: cubic-bezier(10.34, 10.56, 0.64, 40);
 
   /* ==========BREAKPOINTS========== */
-  --breakpoint-lp: 1440px;
-  --breakpoint-2k: 2560px;
+  /* rem (not px) so Tailwind can sort these against its rem-based defaults —
+     with mixed units the media rules are emitted out of order and e.g.
+     md: overrides lp: on wide screens. 90rem=1440px, 160rem=2560px. */
+  --breakpoint-lp: 90rem;
+  --breakpoint-2k: 160rem;
 
   /* ==========Shadows========== */
   --shadow-1: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
