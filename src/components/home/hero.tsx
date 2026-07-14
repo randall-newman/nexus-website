@@ -29,6 +29,7 @@ import {
   ImageIcon,
   Code2,
 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState, useCallback, useEffect } from 'react';
@@ -40,8 +41,27 @@ const SUGGESTIONS = [
   { label: 'Write code',       icon: Code2,     starter: 'Write code to ' },
 ];
 
+/* Rotating use-case placeholders — shows people what Nexus AI can do. */
+const PLACEHOLDER_EXAMPLES = [
+  'Write an academic paper with citations...',
+  'Summarize this 80-page PDF into key takeaways...',
+  'Design a pitch deck for my product launch...',
+  'Debug my code and explain what was wrong...',
+  'Research a topic and draft a cited report...',
+];
+
 function HeroPromptBox() {
+  const { status } = useSession();
   const [prompt,       setPrompt]       = useState('');
+  const [placeholderIdx, setPlaceholderIdx] = useState(0);
+
+  /* cycle the placeholder while the box is empty */
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPlaceholderIdx((i) => (i + 1) % PLACEHOLDER_EXAMPLES.length);
+    }, 3500);
+    return () => clearInterval(id);
+  }, []);
   const [focused,      setFocused]      = useState(false);
   const [lockedHint,   setLockedHint]   = useState<'voice' | 'attach' | null>(null);
   const textareaRef  = useRef<HTMLTextAreaElement>(null);
@@ -63,6 +83,11 @@ function HeroPromptBox() {
   const handleSubmit = () => {
     const q = prompt.trim();
     if (!q) return;
+    // Only signed-in users go straight to the app; everyone else logs in first.
+    if (status !== 'authenticated') {
+      window.location.href = '/login';
+      return;
+    }
     window.location.href = `https://app.mynexusai.com/c/new?prompt=${encodeURIComponent(q)}&submit=true`;
   };
 
@@ -122,7 +147,7 @@ function HeroPromptBox() {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask Nexus AI to write, design or code anything..."
+            placeholder={PLACEHOLDER_EXAMPLES[placeholderIdx]}
             className="text-secondary placeholder:text-secondary/40 block w-full resize-none bg-transparent px-5 pt-5 pb-3 text-[15px] leading-relaxed outline-none [&::-webkit-scrollbar]:w-0 [&::-webkit-scrollbar]:bg-transparent"
             style={{ maxHeight: '220px', overflowY: 'auto', scrollbarWidth: 'none' }}
           />
@@ -474,7 +499,7 @@ const Hero = () => {
   ]);
 
   return (
-    <section ref={rootRef} className="relative isolate overflow-hidden pt-[220px]">
+    <section ref={rootRef} className="relative isolate overflow-hidden pt-[150px] lp:pt-[220px]">
       <Image
         src={heroBg}
         alt="Nexus AI"
@@ -485,12 +510,17 @@ const Hero = () => {
 
       <div className="main-container relative z-10">
         <div className="space-y-9 text-center md:space-y-18">
-          <div className="space-y-8 md:space-y-[70px]">
+          <div className="space-y-8 md:space-y-10 lp:space-y-[70px]">
             <div className="space-y-6">
               <div className="space-y-4">
                 <TextReveal delay={0.1}>
-                  <h1 className="mx-auto max-w-[1150px] font-semibold">
-                    Intelligent AI Workspace That Completes Your Work in Minutes.
+                  {/* Size capped at heading-2 below 1440px so short laptop
+                      viewports (1366×768, 1536×864) keep the full hero —
+                      including the loved-by row — above the fold. Block spans
+                      force the same two-line break on every device. */}
+                  <h1 className="text-heading-4 sm:text-heading-3 md:text-heading-2 lp:text-heading-1 mx-auto max-w-[1150px] font-bold">
+                    <span className="block">Write, research, and create.</span>
+                    <span className="block">Faster than ever before.</span>
                   </h1>
                 </TextReveal>
                 <TextReveal delay={0.2}>
