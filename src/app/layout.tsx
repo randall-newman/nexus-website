@@ -2,6 +2,7 @@ import SmoothScrollProvider from "@/src/components/animation/smooth-scroll";
 import { ConditionalShell } from "@/src/components/shared/layout/conditional-shell";
 import { fontVariables } from "@/src/utils/font";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ReactNode, Suspense } from "react";
 import Script from "next/script";
 import "./globals.css";
@@ -44,6 +45,7 @@ export default function RootLayout({
           </SmoothScrollProvider>
         </Suspense>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
