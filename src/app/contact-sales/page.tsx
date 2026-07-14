@@ -1,6 +1,7 @@
 import RevealAnimation from '@/src/components/animation/reveal-animation';
 import { TextReveal } from '@/src/components/animation/text-reveal';
 import { BadgePrimary } from '@/src/components/shared/ui/badge';
+import { ContactSalesForm } from '@/src/components/contact-sales/contact-sales-form';
 import { generateMetadata } from '@/src/utils/generateMetaData';
 import { Building2, Clock, Mail, ShieldCheck, Users, Zap } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -20,9 +21,6 @@ const reasons = [
   { icon: ShieldCheck, title: 'Education', description: 'Annual institutional licences for universities, colleges and schools with Nexus AI Academic for every student.' },
   { icon: Zap, title: 'Custom integrations', description: 'API access, custom data controls and integrations tailored to your existing stack.' },
 ];
-
-const inputCls =
-  'w-full rounded-xl border border-[#e2e8f2] bg-white px-4 py-3 text-sm text-[#0c1452] placeholder:text-[#94a0bc] focus:border-[#7458e8] focus:outline-none transition-colors duration-200';
 
 export default function ContactSalesPage() {
   return (
@@ -73,65 +71,7 @@ export default function ContactSalesPage() {
               className="border-stroke-3 col-span-12 rounded-2xl border bg-white p-8 lg:col-span-6"
             >
               <h2 className="text-heading-6 text-secondary mb-6">Tell us about your needs</h2>
-              <form
-                action="/contact"
-                method="get"
-                className="space-y-4"
-              >
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-[#0c1452]">First name</label>
-                    <input type="text" placeholder="Sarah" className={inputCls} required />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-[#0c1452]">Last name</label>
-                    <input type="text" placeholder="Mitchell" className={inputCls} required />
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-[#0c1452]">Work email</label>
-                  <input type="email" placeholder="sarah@company.com" className={inputCls} required />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-[#0c1452]">Company name</label>
-                  <input type="text" placeholder="Acme Corp" className={inputCls} required />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-[#0c1452]">Team size</label>
-                  <select className={inputCls}>
-                    <option value="">Select team size</option>
-                    <option value="2-10">2 to 10 people</option>
-                    <option value="11-50">11 to 50 people</option>
-                    <option value="51-200">51 to 200 people</option>
-                    <option value="201-1000">201 to 1000 people</option>
-                    <option value="1000+">Over 1000 people</option>
-                  </select>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-[#0c1452]">Plan interest</label>
-                  <select className={inputCls}>
-                    <option value="">What are you interested in?</option>
-                    <option value="teams">Teams ($30/seat/month)</option>
-                    <option value="business">Business ($50/seat/month)</option>
-                    <option value="education">Education (institutional)</option>
-                    <option value="enterprise">Enterprise (custom)</option>
-                  </select>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-[#0c1452]">Anything else?</label>
-                  <textarea
-                    placeholder="Tell us about your use case, timeline, or any specific requirements..."
-                    className={`${inputCls} min-h-[100px] resize-none`}
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full rounded-xl bg-[#000c60] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#7458e8]"
-                >
-                  Send enquiry
-                </button>
-              </form>
+              <ContactSalesForm />
 
               <div className="mt-6 border-t border-[#e2e8f2] pt-6 flex items-center gap-2">
                 <Mail className="text-secondary/40 size-4 shrink-0" />

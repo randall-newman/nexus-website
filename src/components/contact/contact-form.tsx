@@ -1,15 +1,70 @@
 'use client';
 
+import { TurnstileWidget } from '@/src/components/shared/ui/turnstile-widget';
 import { ButtonPrimary } from '@/src/components/shared/ui/button';
+import { useState } from 'react';
+
+type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const ContactForm = () => {
+  const [status, setStatus] = useState<Status>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus('loading');
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    const payload = {
+      name: data.get('name'),
+      email: data.get('email'),
+      message: data.get('message'),
+      'cf-turnstile-response': data.get('cf-turnstile-response'),
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setStatus('success');
+        form.reset();
+      } else {
+        const json = await res.json().catch(() => ({}));
+        setErrorMsg(json.error ?? 'Something went wrong. Please try again.');
+        setStatus('error');
+      }
+    } catch {
+      setErrorMsg('Network error. Please check your connection and try again.');
+      setStatus('error');
+    }
+  }
+
+  if (status === 'success') {
+    return (
+      <div className="w-full space-y-3 rounded-xl border border-secondary/20 bg-white/60 px-6 py-10 text-center backdrop-blur-sm">
+        <p className="text-heading-6 text-secondary">Message sent!</p>
+        <p className="text-tagline-2 text-secondary/60">
+          We&apos;ll get back to you as soon as possible.
+        </p>
+        <button
+          type="button"
+          onClick={() => setStatus('idle')}
+          className="text-tagline-2 mt-2 underline text-secondary/50 hover:text-secondary"
+        >
+          Send another message
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <form
-      className="w-full space-y-6"
-      onSubmit={(event) => {
-        event.preventDefault();
-      }}
-    >
+    <form className="w-full space-y-6" onSubmit={handleSubmit}>
       <fieldset className="mb-6 space-y-2">
         <label htmlFor="name" className="text-tagline-2 text-secondary/90 inline-block font-normal">
           Your name
@@ -39,10 +94,7 @@ const ContactForm = () => {
       </fieldset>
 
       <fieldset className="mb-4 space-y-2">
-        <label
-          htmlFor="message"
-          className="text-tagline-2 text-secondary/90 inline-block font-normal"
-        >
+        <label htmlFor="message" className="text-tagline-2 text-secondary/90 inline-block font-normal">
           Your message
         </label>
         <textarea
@@ -63,13 +115,20 @@ const ContactForm = () => {
         </label>
       </fieldset>
 
+      <TurnstileWidget theme="light" />
+
+      {status === 'error' && (
+        <p className="text-tagline-3 text-red-500">{errorMsg}</p>
+      )}
+
       <div className="inline-block pt-4 md:pt-6">
         <ButtonPrimary
           type="submit"
+          disabled={status === 'loading'}
           className="w-full md:w-auto"
           textClassName="text-center text-nowrap max-sm:flex-1 max-sm:pr-8!"
         >
-          Send message
+          {status === 'loading' ? 'Sending...' : 'Send message'}
         </ButtonPrimary>
       </div>
     </form>
