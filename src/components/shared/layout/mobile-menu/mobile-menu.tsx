@@ -3,7 +3,9 @@ import logo from '@/public/images/logo/logo.svg';
 import MenuCloseButton from '@/src/components/shared/layout/mobile-menu/menu-close-button';
 import MobileMenuItem from '@/src/components/shared/layout/mobile-menu/mobile-menu-item';
 import { useMobileMenuContext } from '@/src/context/MobileMenuContext';
+import { ButtonPrimary } from '@/src/components/shared/ui/button';
 import { cn } from '@/src/utils/cn';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -23,6 +25,7 @@ export interface MobileMenuGroup {
 
 const MobileMenu = ({ menuData }: { menuData: MobileMenuGroup[] }) => {
   const { isOpen, closeMenu } = useMobileMenuContext();
+  const { status } = useSession();
   const pathname = usePathname();
 
   const isActiveLink = (href: string) =>
@@ -78,6 +81,21 @@ const MobileMenu = ({ menuData }: { menuData: MobileMenuGroup[] }) => {
               </MobileMenuItem>
             ))}
           </ul>
+
+          {/* Mirrors the desktop header CTA, placed below the Login item:
+              Try for Free when signed out, Pricing when signed in. */}
+          <div className="mt-4">
+            <Link
+              href={status === 'authenticated' ? '/pricing' : '/signup'}
+              onClick={closeMenu}
+              className="block"
+              aria-label={status === 'authenticated' ? 'Pricing' : 'Try for Free'}
+            >
+              <ButtonPrimary className="w-full" textClassName="text-center text-nowrap flex-1">
+                {status === 'authenticated' ? 'Pricing' : 'Try for Free'}
+              </ButtonPrimary>
+            </Link>
+          </div>
         </div>
       </div>
     </aside>
