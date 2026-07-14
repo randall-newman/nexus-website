@@ -30,12 +30,52 @@ export const authOptions: AuthOptions = {
     },
   ],
 
-  session: { strategy: 'jwt' },
+  session: {
+    strategy: 'jwt',
+    // Short-lived on purpose: the site never re-checks the Zitadel session
+    // after login, so a long-lived cookie would keep users "logged in" here
+    // long after they signed out at app.mynexusai.com. Active users are
+    // rolled over every hour; idle sessions die within 4 hours.
+    maxAge: 4 * 60 * 60,
+    updateAge: 60 * 60,
+  },
 
   callbacks: {
+    // NextAuth's default redirect callback rejects external URLs, so allow
+    // the app explicitly — post-login we hand users over to it.
+    async redirect({ url, baseUrl }) {
+      if (url.startsWith('/')) return `${baseUrl}${url}`;
+      try {
+        const { origin } = new URL(url);
+        if (origin === baseUrl || origin === 'https://app.mynexusai.com') return url;
+      } catch {
+        // fall through to baseUrl
+      }
+      return baseUrl;
+    },
     async jwt({ token, account }) {
       if (account?.access_token) {
         token.accessToken = account.access_token;
+        // Kept server-side for federated logout (id_token_hint) — never
+        // exposed via the session callback.
+        token.idToken = account.id_token;
+        // Zitadel omits profile claims from the id_token unless "User Info
+        // inside ID Token" is enabled on the app, and the provider never
+        // calls the userinfo endpoint (idToken: true) — so fetch the claims
+        // ourselves on initial sign-in.
+        try {
+          const res = await fetch(`${process.env.ZITADEL_ISSUER}/oidc/v1/userinfo`, {
+            headers: { Authorization: `Bearer ${account.access_token}` },
+          });
+          if (res.ok) {
+            const profile = await res.json();
+            token.name = profile.name ?? token.name;
+            token.email = profile.email ?? token.email;
+            token.picture = profile.picture ?? token.picture;
+          }
+        } catch {
+          // Non-fatal: the session just falls back to id-only.
+        }
       }
       return token;
     },

@@ -31,6 +31,22 @@ function Avatar({ imageUrl, name, size }: { imageUrl?: string | null; name: stri
   );
 }
 
+async function federatedSignOut() {
+  // End the Zitadel session too (SSO with app.mynexusai.com), not just the
+  // local NextAuth cookie — otherwise the next login silently auto-signs-in.
+  let logoutUrl = '/';
+  try {
+    const res = await fetch('/api/auth/federated-logout');
+    if (res.ok) {
+      logoutUrl = (await res.json()).url ?? '/';
+    }
+  } catch {
+    // Fall back to local-only sign-out.
+  }
+  await signOut({ redirect: false });
+  window.location.href = logoutUrl;
+}
+
 export function NavbarAuth() {
   const { data: session, status } = useSession();
   const [open, setOpen] = useState(false);
@@ -93,7 +109,7 @@ export function NavbarAuth() {
             </a>
             <button
               type="button"
-              onClick={() => { setOpen(false); signOut({ callbackUrl: '/' }); }}
+              onClick={() => { setOpen(false); federatedSignOut(); }}
               className="flex w-full items-center gap-x-2.5 px-4 py-2.5 text-[13px] text-secondary/70 hover:bg-background-13 hover:text-secondary"
             >
               <LogOut className="size-4 shrink-0" />

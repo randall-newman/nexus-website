@@ -4,6 +4,7 @@ import mainLogo from '@/public/images/logo/main-logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { GOOGLE_SIGNIN_AUTH_PARAMS, POST_LOGIN_URL } from '@/src/lib/zitadel-scopes';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { AuthRightPanel } from './auth-right-panel';
@@ -29,7 +30,7 @@ const Login = () => {
     setLoading(true);
     // login_hint must go in signIn's third argument (authorizationParams) —
     // extra keys in the second argument are not forwarded to the authorize URL.
-    await signIn('verbosec-account', { callbackUrl: '/' }, { login_hint: email });
+    await signIn('verbosec-account', { callbackUrl: POST_LOGIN_URL }, { login_hint: email });
   }
 
   return (
@@ -63,7 +64,7 @@ const Login = () => {
           <div className="space-y-3">
             <button
               type="button"
-              onClick={() => signIn('verbosec-account', { callbackUrl: '/' })}
+              onClick={() => signIn('verbosec-account', { callbackUrl: POST_LOGIN_URL }, GOOGLE_SIGNIN_AUTH_PARAMS)}
               className="flex w-full items-center justify-center gap-3 rounded-xl border border-stroke-3 bg-white px-4 py-3 text-sm font-medium text-secondary shadow-sm transition-all hover:border-secondary/20 hover:shadow-md"
             >
               <GoogleIcon />
