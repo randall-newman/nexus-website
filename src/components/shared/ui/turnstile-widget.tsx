@@ -2,7 +2,9 @@
 
 import Script from 'next/script';
 
-const SITEKEY = '0x4AAAAAAD13ABkFlVKSy2Z8';
+// Overridable so local dev can use Cloudflare's always-pass test sitekey
+// (the production sitekey's hostname allowlist doesn't cover localhost).
+const SITEKEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '0x4AAAAAAD13ABkFlVKSy2Z8';
 
 interface TurnstileWidgetProps {
   theme?: 'light' | 'dark' | 'auto';
