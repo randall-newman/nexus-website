@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react';
 import { Slot } from '@radix-ui/react-slot';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ComponentPropsWithoutRef, RefCallback, useRef } from 'react';
+import { ComponentPropsWithoutRef, RefCallback, isValidElement, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -40,7 +40,11 @@ export default function RevealAnimation({
   animationType = 'from',
   ...props
 }: RevealAnimationProps) {
-  const Component = asChild ? Slot : 'div';
+  // Radix Slot 1.3 throws ("failed to slot onto its children") when children
+  // isn't a plain single element — which can happen transiently while Next
+  // streams RSC children (lazy holes / array-wrapped nodes). Only slot when
+  // it's provably safe; otherwise render a real wrapper instead of crashing.
+  const Component = asChild && isValidElement(children) ? Slot : 'div';
   const elementRef = useRef<HTMLElement | null>(null);
 
   const setRef: RefCallback<Element> = (node) => {
