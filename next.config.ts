@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   images: {
     qualities: [100, 75],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'account.verbosec.com' },
+      { protocol: 'https', hostname: 'lh3.googleusercontent.com' },
+    ],
   },
 };
 

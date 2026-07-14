@@ -4,6 +4,8 @@ import mainLogo from '@/public/images/logo/main-logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 import { AuthRightPanel } from './auth-right-panel';
 
 const inputCls =
@@ -18,13 +20,16 @@ const GoogleIcon = () => (
   </svg>
 );
 
-const AppleIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="size-[18px]" fill="currentColor">
-    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.18.07 2 .74 2.73.8.94-.19 1.84-.89 3.02-.84 1.26.06 2.21.57 2.83 1.44-2.56 1.54-1.97 5.18.65 6.36-.49 1.38-1.17 2.72-2.23 4.12zM13 3.5c.06 2.15-1.66 3.91-3.67 3.78-.31-1.89 1.67-3.79 3.67-3.78z" />
-  </svg>
-);
-
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLoading(true);
+    await signIn('verbosec-account', { callbackUrl: '/', login_hint: email });
+  }
+
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       {/* ── Left — form ──────────────────────────────────────────── */}
@@ -54,20 +59,14 @@ const Login = () => {
 
           {/* Social buttons */}
           <div className="space-y-3">
-            <a
-              href="https://app.mynexusai.com/login?provider=google"
+            <button
+              type="button"
+              onClick={() => signIn('verbosec-account', { callbackUrl: '/' })}
               className="flex w-full items-center justify-center gap-3 rounded-xl border border-stroke-3 bg-white px-4 py-3 text-sm font-medium text-secondary shadow-sm transition-all hover:border-secondary/20 hover:shadow-md"
             >
               <GoogleIcon />
               Continue with Google
-            </a>
-            <a
-              href="https://app.mynexusai.com/login?provider=apple"
-              className="flex w-full items-center justify-center gap-3 rounded-xl border border-stroke-3 bg-white px-4 py-3 text-sm font-medium text-secondary shadow-sm transition-all hover:border-secondary/20 hover:shadow-md"
-            >
-              <AppleIcon />
-              Continue with Apple
-            </a>
+            </button>
           </div>
 
           {/* Divider */}
@@ -78,30 +77,11 @@ const Login = () => {
           </div>
 
           {/* Email form */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              window.location.href = 'https://app.mynexusai.com/login';
-            }}
-            className="space-y-4"
-          >
-            <div className="space-y-1.5">
-              <label htmlFor="email" className="block text-[13px] font-medium text-secondary/70">
-                Email address
-              </label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                placeholder="you@example.com"
-                className={inputCls}
-                required
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-[13px] font-medium text-secondary/70">
-                  Password
+                <label htmlFor="email" className="block text-[13px] font-medium text-secondary/70">
+                  Email address
                 </label>
                 <Link
                   href="/forgot-password"
@@ -111,22 +91,28 @@ const Login = () => {
                 </Link>
               </div>
               <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="At least 8 characters"
+                id="email"
+                type="email"
+                name="email"
+                placeholder="you@example.com"
                 className={inputCls}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
-                minLength={8}
               />
             </div>
 
             <button
               type="submit"
-              className="mt-2 w-full rounded-xl bg-secondary py-3 text-sm font-semibold text-white transition-opacity hover:opacity-85"
+              disabled={loading}
+              className="mt-2 w-full rounded-xl bg-secondary py-3 text-sm font-semibold text-white transition-opacity hover:opacity-85 disabled:opacity-40"
             >
-              Log in
+              {loading ? 'Redirecting...' : 'Continue'}
             </button>
+
+            <p className="text-center text-[12px] text-secondary/40">
+              You&apos;ll enter your password on the next step.
+            </p>
           </form>
 
           <p className="mt-6 text-center text-[13px] text-secondary/50">

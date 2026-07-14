@@ -1,6 +1,5 @@
 'use client';
 
-import logo from '@/public/images/logo/logo.svg';
 import mainLogo from '@/public/images/logo/main-logo.svg';
 import RevealAnimation from '@/src/components/animation/reveal-animation';
 import MobileMenu from '@/src/components/shared/layout/mobile-menu/mobile-menu';
@@ -9,7 +8,7 @@ import { SolutionsMenu } from '@/src/components/shared/layout/navbar/solutions-m
 import { NavChevron } from '@/src/components/shared/layout/navbar/nav-chevron';
 import { NavbarMobileMenuButton } from '@/src/components/shared/layout/navbar/navbar-mobile-menu-button';
 import { PlatformMenu } from '@/src/components/shared/layout/navbar/platform-menu';
-import { ButtonPrimary } from '@/src/components/shared/ui/button';
+import { NavbarAuth } from '@/src/components/shared/layout/navbar/navbar-auth';
 import { mobileMenuData } from '@/src/data/mobile-meu';
 import { useNavbarScroll } from '@/src/hooks/useScrollHeader';
 import { cn } from '@/src/utils/cn';
@@ -47,13 +46,13 @@ const Navbar = () => {
                     priority
                   />
                 </figure>
-                <figure className="relative block h-11 w-11 max-w-[44px] lg:hidden">
+                <figure className="relative block h-9 w-[150px] max-w-[150px] lg:hidden">
                   <Image
-                    src={logo}
+                    src={mainLogo}
                     alt="Nexus AI"
                     fill
-                    className="block w-full object-contain"
-                    sizes="44px"
+                    className="object-contain object-left"
+                    sizes="150px"
                   />
                 </figure>
               </Link>
@@ -126,15 +125,7 @@ const Navbar = () => {
             </nav>
 
             <div className="hidden items-center justify-center gap-x-2 xl:flex">
-              <Link
-                href="/login"
-                className="text-tagline-1 text-secondary/60 hover:text-secondary px-3 py-2 font-normal transition-colors duration-200"
-              >
-                Login
-              </Link>
-              <Link href="/signup" className="inline-block" aria-label="Try for Free">
-                <ButtonPrimary>Try for Free</ButtonPrimary>
-              </Link>
+              <NavbarAuth />
             </div>
             <NavbarMobileMenuButton />
           </div>

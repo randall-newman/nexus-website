@@ -1,3 +1,4 @@
+import { findUserIdByEmail, triggerPasswordReset } from '@/src/lib/zitadel';
 import { verifyTurnstile } from '@/src/utils/turnstile';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -23,6 +24,22 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Bot check failed' }, { status: 403 });
   }
 
-  // TODO: authenticate against user store
-  return NextResponse.json({ success: true });
+  const email: string = body.email ?? '';
+  if (!email.trim()) {
+    return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+  }
+
+  // Always respond with the same generic success shape, whether or not the
+  // email is registered — avoids leaking account existence to callers.
+  try {
+    const userId = await findUserIdByEmail(email);
+    if (userId) {
+      await triggerPasswordReset(userId);
+    }
+  } catch (error) {
+    // Still return a generic success below — never leak account existence.
+    console.error('Password reset failed', error);
+  }
+
+  return NextResponse.json({ ok: true });
 }

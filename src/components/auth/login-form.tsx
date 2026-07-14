@@ -4,48 +4,24 @@ import AuthOrDivider from '@/src/components/auth/auth-or-divider';
 import SocialButtons from '@/src/components/auth/social-buttons';
 import { TurnstileWidget } from '@/src/components/shared/ui/turnstile-widget';
 import { ButtonWhite } from '@/src/components/shared/ui/button';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import Link from 'next/link';
-
-type Status = 'idle' | 'loading' | 'success' | 'error';
 
 const inputClassName =
   'w-full rounded-md border border-stroke-3/25 bg-transparent px-4.5 py-3 text-white/90 placeholder:text-white/55 focus:outline-none';
 
 const LoginForm = () => {
-  const [status, setStatus] = useState<Status>('idle');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus('loading');
-
-    const data = new FormData(event.currentTarget);
-
-    const payload = {
-      email: data.get('email'),
-      password: data.get('password'),
-      'cf-turnstile-response': data.get('cf-turnstile-response'),
-    };
-
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.ok) {
-        setStatus('success');
-      } else {
-        const json = await res.json().catch(() => ({}));
-        setErrorMsg(json.error ?? 'Login failed. Please try again.');
-        setStatus('error');
-      }
-    } catch {
-      setErrorMsg('Network error. Please check your connection and try again.');
-      setStatus('error');
-    }
+    setLoading(true);
+    await signIn('verbosec-account', {
+      callbackUrl: '/',
+      login_hint: email,
+    });
   }
 
   return (
@@ -65,6 +41,8 @@ const LoginForm = () => {
               name="email"
               placeholder="Email address"
               className={inputClassName}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               aria-label="Your email"
             />
@@ -80,8 +58,6 @@ const LoginForm = () => {
               name="password"
               placeholder="At least 8 characters"
               className={inputClassName}
-              required
-              minLength={8}
               aria-label="Password"
             />
           </fieldset>
@@ -89,17 +65,13 @@ const LoginForm = () => {
 
         <TurnstileWidget theme="dark" />
 
-        {status === 'error' && (
-          <p className="text-tagline-3 -mt-4 text-red-400">{errorMsg}</p>
-        )}
-
         <ButtonWhite
           type="submit"
-          disabled={status === 'loading'}
+          disabled={loading}
           className="w-full md:w-auto"
           textClassName="text-center text-nowrap flex-1 px-0! mr-8!"
         >
-          {status === 'loading' ? 'Logging in...' : 'Login'}
+          {loading ? 'Redirecting...' : 'Login'}
         </ButtonWhite>
 
         <AuthOrDivider />

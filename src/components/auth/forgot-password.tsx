@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowLeft, Mail } from 'lucide-react';
+import { TurnstileWidget } from '@/src/components/shared/ui/turnstile-widget';
 import { AuthRightPanel } from './auth-right-panel';
 
 const inputCls =
@@ -13,13 +14,42 @@ const inputCls =
 const ForgotPassword = () => {
   const [email, setEmail]     = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const q = email.trim();
     if (!q) return;
-    window.location.href = `https://app.mynexusai.com/forgot-password?email=${encodeURIComponent(q)}`;
-  };
+
+    setErrorMsg('');
+    setLoading(true);
+
+    const data = new FormData(e.currentTarget);
+
+    try {
+      const res = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: q,
+          'cf-turnstile-response': data.get('cf-turnstile-response'),
+        }),
+      });
+
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}));
+        setErrorMsg(json.error ?? 'Something went wrong. Please try again.');
+        setLoading(false);
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setErrorMsg('Network error. Please check your connection and try again.');
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
@@ -70,12 +100,16 @@ const ForgotPassword = () => {
                   />
                 </div>
 
+                <TurnstileWidget theme="light" />
+
+                {errorMsg && <p className="text-[13px] text-red-500">{errorMsg}</p>}
+
                 <button
                   type="submit"
                   className="mt-2 w-full rounded-xl bg-secondary py-3 text-sm font-semibold text-white transition-opacity hover:opacity-85 disabled:opacity-40"
-                  disabled={!email.trim()}
+                  disabled={!email.trim() || loading}
                 >
-                  Send reset link
+                  {loading ? 'Sending...' : 'Send reset link'}
                 </button>
               </form>
 
@@ -87,7 +121,6 @@ const ForgotPassword = () => {
               </p>
             </>
           ) : (
-            /* Success state — shown if we ever use client-side flow */
             <div className="text-center">
               <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-stroke-3 bg-emerald-50">
                 <Mail className="h-6 w-6 stroke-emerald-500" />

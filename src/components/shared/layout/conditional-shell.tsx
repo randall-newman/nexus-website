@@ -11,7 +11,7 @@ const AUTH_PATHS = ['/login', '/signup', '/forgot-password', '/developers/consol
 const CUSTOM_LAYOUT_PATHS = ['/help'];
 
 export function ConditionalShell({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '';
   const isAuth = AUTH_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'));
   const isCustomLayout = CUSTOM_LAYOUT_PATHS.some((p) => pathname === p || pathname.startsWith(p + '/'));
 

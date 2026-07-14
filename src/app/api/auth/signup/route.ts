@@ -1,5 +1,18 @@
+import { createHumanUser, ZitadelApiError } from '@/src/lib/zitadel';
 import { verifyTurnstile } from '@/src/utils/turnstile';
 import { NextRequest, NextResponse } from 'next/server';
+
+function splitName(fullName: string): { givenName: string; familyName: string } {
+  const trimmed = fullName.trim();
+  const spaceIndex = trimmed.indexOf(' ');
+  if (spaceIndex === -1) {
+    return { givenName: trimmed, familyName: trimmed };
+  }
+  return {
+    givenName: trimmed.slice(0, spaceIndex),
+    familyName: trimmed.slice(spaceIndex + 1).trim(),
+  };
+}
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
@@ -23,6 +36,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Bot check failed' }, { status: 403 });
   }
 
-  // TODO: create user account
-  return NextResponse.json({ success: true });
+  const name: string = body.name ?? '';
+  const email: string = body.email ?? '';
+  const password: string = body.password ?? '';
+
+  if (!name.trim() || !email.trim() || !password) {
+    return NextResponse.json({ error: 'Name, email and password are required' }, { status: 400 });
+  }
+
+  const { givenName, familyName } = splitName(name);
+
+  try {
+    await createHumanUser({ email, givenName, familyName, password });
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    if (error instanceof ZitadelApiError) {
+      return NextResponse.json({ error: error.message }, { status: error.status >= 500 ? 502 : 400 });
+    }
+    return NextResponse.json({ error: 'Something went wrong. Please try again.' }, { status: 500 });
+  }
 }
