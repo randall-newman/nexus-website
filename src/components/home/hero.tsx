@@ -1,26 +1,26 @@
 'use client';
 
 import bottomGradient from '@/public/images/bottom-gradient.svg';
+import appLogo from '@/public/images/logo/logo.svg';
 import avatar1 from '@/public/images/nexus-avatar-1.jpg';
 import avatar2 from '@/public/images/nexus-avatar-2.jpg';
 import avatar3 from '@/public/images/nexus-avatar-3.jpg';
 import heroBg from '@/public/images/nexus-ai-hero.jpg';
-import leftElement from '@/public/images/ns-img-27.svg';
 import CounterNumberOnScroll from '@/src/components/animation/counter-number-on-scroll';
 import RevealAnimation from '@/src/components/animation/reveal-animation';
 import { ArrowUpIcon } from '@/src/components/shared/icon';
 import AvatarItem from '@/src/components/shared/ui/avatar-reveal/avatar-item';
 import AvatarReveal from '@/src/components/shared/ui/avatar-reveal/avatar-reveal';
-import { useSlightlyMoveOnMouseMove } from '@/src/hooks/use-slightly-move-on-mouse-move';
 import { cn } from '@/src/utils/cn';
 import {
-  BookOpen,
+  AlignLeft,
   FileText,
   FolderOpen,
   MessageSquare,
   Sparkles,
   Paperclip,
   Mic,
+  List,
   Lock,
   X,
   PenLine,
@@ -301,148 +301,211 @@ function HeroPromptBox() {
   );
 }
 
-const folders = [
+const recentChats = [
+  'Term paper: sleep & working memory',
+  'Pitch deck for club fundraiser',
+  'Summarize BIO-201 lecture notes',
+];
+
+const chatFolders = [
+  { name: 'PhD Thesis', active: true },
   { name: 'Q3 Research', active: false },
-  { name: 'Legal Review', active: true },
-  { name: 'PhD Thesis', active: false },
   { name: 'Meeting Notes', active: false },
 ];
 
 const AppScreenshot = () => (
-  <div className="flex size-full flex-col overflow-hidden rounded-[20px] bg-white shadow-[0_20px_60px_rgba(0,12,96,0.18)]">
+  <div className="flex size-full flex-col overflow-hidden rounded-[20px] bg-white text-left shadow-[0_20px_60px_rgba(0,12,96,0.18)]">
     {/* macOS title bar */}
     <div className="flex h-10 shrink-0 items-center gap-2 border-b border-[#e8ecf2] bg-[#f5f6fa] px-4">
       <span className="size-3 rounded-full bg-[#ff5f57]" />
       <span className="size-3 rounded-full bg-[#ffbd2e]" />
       <span className="size-3 rounded-full bg-[#28c840]" />
-      <span className="text-tagline-3 text-secondary/40 mx-auto">Nexus AI: Legal Review</span>
+      <span className="text-tagline-3 text-secondary/40 mx-auto">Nexus AI</span>
     </div>
 
     <div className="flex flex-1 overflow-hidden">
-      {/* Sidebar */}
+      {/* Sidebar — Nexus AI chat app */}
       <div className="hidden w-52 shrink-0 flex-col border-r border-[#e8ecf2] bg-[#f9fafb] md:flex">
-        <div className="flex items-center gap-2.5 border-b border-[#e8ecf2] p-3">
-          <div className="flex size-7 items-center justify-center rounded-full bg-[#7458e8] text-[10px] font-semibold text-white">
-            S
-          </div>
-          <div>
-            <p className="text-tagline-3 text-secondary font-medium">Sarah Mitchell</p>
-            <p className="text-[10px] text-secondary/40">Premium</p>
-          </div>
+        <div className="flex items-center gap-2 border-b border-[#e8ecf2] p-3">
+          <Image src={appLogo} alt="Nexus AI logo" width={22} height={22} className="size-5.5" />
+          <span className="text-tagline-3 text-secondary font-semibold">Nexus AI</span>
         </div>
-
         <div className="p-2">
-          <p className="text-[10px] text-secondary/40 px-2 pb-1 pt-2 font-medium tracking-wide uppercase">
-            Folders
-          </p>
-          {folders.map((f) => (
-            <div
-              key={f.name}
-              className={cn(
-                'flex items-center gap-2 rounded-lg px-2 py-1.5',
-                f.active ? 'bg-[#7458e8]/10' : ''
-              )}
-            >
-              <FolderOpen
-                className={cn('size-3.5', f.active ? 'text-[#7458e8]' : 'text-secondary/40')}
-              />
-              <span
-                className={cn(
-                  'text-[11px]',
-                  f.active ? 'text-[#7458e8] font-medium' : 'text-secondary/70'
-                )}
-              >
-                {f.name}
-              </span>
+          <div className="flex items-center justify-center gap-1.5 rounded-lg bg-[#7458e8] px-2 py-1.5">
+            <PenLine className="size-3 text-white" />
+            <span className="text-[10px] font-medium text-white">New chat</span>
+          </div>
+        </div>
+        <div className="px-2">
+          <p className="text-[10px] text-secondary/40 px-2 pt-1 pb-1 font-medium tracking-wide uppercase">Recents</p>
+          {recentChats.map((c, i) => (
+            <div key={c} className={cn('rounded-lg px-2 py-1.5', i === 0 ? 'bg-[#7458e8]/10' : '')}>
+              <span className={cn('block truncate text-[11px]', i === 0 ? 'font-medium text-[#7458e8]' : 'text-secondary/70')}>{c}</span>
             </div>
           ))}
         </div>
-
-        <div className="p-2 mt-2">
-          <p className="text-[10px] text-secondary/40 px-2 pb-1 font-medium tracking-wide uppercase">
-            Features
-          </p>
-          {[
-            { icon: BookOpen, label: 'Academic' },
-            { icon: FileText, label: 'Artifacts' },
-            { icon: MessageSquare, label: 'File Chat' },
-          ].map(({ icon: Icon, label }) => (
-            <div key={label} className="flex items-center gap-2 rounded-lg px-2 py-1.5">
-              <Icon className="text-secondary/40 size-3.5" />
-              <span className="text-[11px] text-secondary/70">{label}</span>
+        <div className="mt-1 px-2">
+          <p className="text-[10px] text-secondary/40 px-2 pt-1 pb-1 font-medium tracking-wide uppercase">Folders</p>
+          {chatFolders.map((f) => (
+            <div key={f.name} className="flex items-center gap-2 rounded-lg px-2 py-1.5">
+              <FolderOpen className="text-secondary/40 size-3.5" />
+              <span className="text-[11px] text-secondary/70">{f.name}</span>
             </div>
           ))}
+        </div>
+        <div className="mt-auto flex items-center gap-2 border-t border-[#e8ecf2] p-3">
+          <div className="flex size-6 items-center justify-center rounded-full bg-[#7458e8] text-[9px] font-semibold text-white">S</div>
+          <div>
+            <p className="text-[10px] text-secondary font-medium">Sarah Mitchell</p>
+            <p className="text-[9px] text-secondary/40">Premium</p>
+          </div>
         </div>
       </div>
 
-      {/* Chat area */}
-      <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Chat header */}
-        <div className="flex h-10 shrink-0 items-center gap-2 border-b border-[#e8ecf2] px-4">
-          <MessageSquare className="text-secondary/40 size-4" />
-          <span className="text-tagline-3 text-secondary/70 font-medium">
-            Summarise risks in contract-draft-v3.pdf
-          </span>
+      {/* Chat panel */}
+      <div className="flex min-w-0 flex-1 flex-col border-r border-[#e8ecf2]">
+        <div className="flex h-9 shrink-0 items-center gap-2 border-b border-[#e8ecf2] px-3">
+          <MessageSquare className="text-secondary/40 size-3.5" />
+          <span className="truncate text-[11px] text-secondary/70 font-medium">Term paper: sleep &amp; working memory</span>
         </div>
-
-        {/* Messages */}
-        <div className="flex-1 space-y-4 overflow-y-auto p-4">
-          {/* User message */}
+        <div className="flex-1 space-y-3 overflow-y-auto p-3">
           <div className="flex justify-end">
-            <div className="max-w-[72%] rounded-2xl rounded-tr-sm bg-[#7458e8] px-4 py-3">
-              <p className="text-[11px] text-white">
-                Summarise the key risks in this contract and flag anything that needs legal
-                review before we sign.
+            <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-[#7458e8] px-3 py-2">
+              <p className="text-[10px] leading-relaxed text-white">
+                Draft my psychology term paper on how sleep deprivation affects working memory in
+                university students. Give it a proper outline and use real, cited studies.
               </p>
             </div>
           </div>
-
-          {/* AI response */}
-          <div className="flex items-start gap-2.5">
-            <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#f4f2fe]">
-              <Sparkles className="text-[#7458e8] size-3.5" />
+          <div className="flex items-start gap-2">
+            <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#f4f2fe]">
+              <Sparkles className="size-3 text-[#7458e8]" />
             </div>
-            <div className="max-w-[80%] space-y-2.5">
-              <div className="rounded-2xl rounded-tl-sm border border-[#e8ecf2] bg-white px-4 py-3">
-                <p className="text-[11px] text-secondary/80 leading-relaxed">
-                  Three risks stand out in this contract:
+            <div className="min-w-0 space-y-1.5">
+              <div className="rounded-2xl rounded-tl-sm border border-[#e8ecf2] bg-white px-3 py-2">
+                <p className="text-[10px] leading-relaxed text-secondary/80">
+                  Done — I structured the paper into five sections and drafted it in the Artifact
+                  with 18 verified sources. The strongest evidence comes from:
                 </p>
-                <div className="mt-2 space-y-1.5">
-                  {[
-                    { label: 'Auto-renewal clause', page: 'p.4' },
-                    { label: 'Uncapped liability term', page: 'p.9' },
-                    { label: '30-day termination window', page: 'p.12' },
-                  ].map((risk) => (
-                    <div key={risk.label} className="flex items-center gap-2">
-                      <span className="size-1.5 shrink-0 rounded-full bg-[#f65c9c]" />
-                      <span className="text-[11px] text-secondary/80">{risk.label}</span>
-                      <span className="text-[10px] text-secondary/40 ml-auto rounded-full bg-[#f4f2fe] px-1.5 py-0.5">
-                        {risk.page}
-                      </span>
-                    </div>
-                  ))}
+                <div className="mt-1.5 flex flex-wrap gap-1">
+                  <span className="rounded-full bg-[#f4f2fe] px-1.5 py-0.5 text-[9px] text-[#7458e8]">Lo et al., 2016 · Sleep</span>
+                  <span className="rounded-full bg-[#f4f2fe] px-1.5 py-0.5 text-[9px] text-[#7458e8]">Krause et al., 2017</span>
                 </div>
               </div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] text-secondary/40">Sourced from contract-draft-v3.pdf</span>
-                <span className="bg-[#f4f2fe] text-[#7458e8] rounded-full px-1.5 py-0.5 text-[9px]">
-                  3 sources
-                </span>
-              </div>
+              <span className="text-[9px] text-secondary/40">18 sources · citations verified</span>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <div className="max-w-[85%] rounded-2xl rounded-tr-sm bg-[#7458e8] px-3 py-2">
+              <p className="text-[10px] leading-relaxed text-white">
+                Great. Expand the literature review and keep APA style.
+              </p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#f4f2fe]">
+              <Sparkles className="size-3 text-[#7458e8]" />
+            </div>
+            <div className="rounded-2xl rounded-tl-sm border border-[#e8ecf2] bg-white px-3 py-2">
+              <p className="text-[10px] leading-relaxed text-secondary/80">
+                Expanding section 2 now — adding acute vs. chronic deprivation and recovery-sleep
+                findings<span className="ml-0.5 inline-block h-2.5 w-[1.5px] animate-pulse bg-[#7458e8] align-middle" />
+              </p>
             </div>
           </div>
         </div>
-
-        {/* Input bar */}
-        <div className="shrink-0 border-t border-[#e8ecf2] p-3">
-          <div className="flex items-center gap-2 rounded-xl border border-[#e8ecf2] bg-[#f9fafb] px-3 py-2">
-            <span className="text-[11px] text-secondary/30 flex-1">
-              Ask a follow-up question...
-            </span>
-            <div className="flex size-6 items-center justify-center rounded-full bg-[#7458e8]">
-              <ArrowUpIcon className="size-3 fill-white" />
+        <div className="shrink-0 border-t border-[#e8ecf2] p-2.5">
+          <div className="flex items-center gap-2 rounded-xl border border-[#e8ecf2] bg-[#f9fafb] px-2.5 py-1.5">
+            <span className="flex-1 text-[10px] text-secondary/30">Reply to Nexus AI...</span>
+            <div className="flex size-5 items-center justify-center rounded-full bg-[#7458e8]">
+              <ArrowUpIcon className="size-2.5 fill-white" />
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Artifact panel with Word-style tools — unique to Nexus AI */}
+      <div className="hidden w-[46%] shrink-0 flex-col lg:flex">
+        <div className="flex h-9 shrink-0 items-center gap-1.5 border-b border-[#e8ecf2] bg-[#f9fafb] px-3">
+          <FileText className="size-3.5 text-[#7458e8]" />
+          <span className="text-[11px] text-secondary font-medium">Artifact</span>
+          <span className="rounded-full bg-[#eafaf1] px-1.5 py-0.5 text-[8px] text-[#0e9f6e]">Word tools</span>
+          <span className="ml-auto rounded-full bg-[#7458e8] px-2 py-0.5 text-[9px] font-medium text-white">Export .docx</span>
+        </div>
+        {/* Word-style ribbon */}
+        <div className="flex shrink-0 items-center gap-1.5 border-b border-[#e8ecf2] px-3 py-1.5">
+          <span className="flex items-center gap-1 rounded-md border border-[#e8ecf2] px-1.5 py-0.5 text-[9px] text-secondary/70">
+            Times New Roman <span className="text-secondary/30">▾</span>
+          </span>
+          <span className="rounded-md border border-[#e8ecf2] px-1.5 py-0.5 text-[9px] text-secondary/70">12</span>
+          <span className="mx-0.5 h-3.5 w-px bg-[#e8ecf2]" />
+          <span className="relative flex size-5 items-center justify-center rounded bg-[#f4f2fe] text-[10px] font-bold text-[#7458e8]">
+            B
+            <span className="pointer-events-none absolute top-3 left-2.5 z-20"><UserCursor /></span>
+          </span>
+          <span className="flex size-5 items-center justify-center rounded text-[10px] italic text-secondary/60">I</span>
+          <span className="flex size-5 items-center justify-center rounded text-[10px] text-secondary/60 underline">U</span>
+          <span className="mx-0.5 h-3.5 w-px bg-[#e8ecf2]" />
+          <AlignLeft className="text-secondary/60 size-3.5" />
+          <List className="text-secondary/60 size-3.5" />
+          <span className="mx-0.5 h-3.5 w-px bg-[#e8ecf2]" />
+          <span className="rounded-md border border-[#e8ecf2] px-1.5 py-0.5 text-[9px] text-secondary/70">Heading 2 ▾</span>
+        </div>
+        {/* Document */}
+        <div className="flex-1 overflow-y-auto bg-[#f9fafb] p-3">
+          <div className="mx-auto min-h-full rounded-lg border border-[#e8ecf2] bg-white px-4 py-3.5 shadow-sm">
+            <p className="text-center text-[12px] text-secondary font-semibold">
+              Sleep Deprivation and Working Memory in University Students
+            </p>
+            <p className="mt-0.5 text-center text-[9px] text-secondary/50">
+              PSYC 3410 · Cognitive Psychology · S. Mitchell
+            </p>
+
+            <p className="mt-2.5 text-[10px] font-semibold text-secondary">1. Introduction</p>
+            <p className="mt-1 text-[10px] leading-relaxed text-secondary/80">
+              University students routinely sleep less than the recommended eight hours, with a
+              majority reporting under seven hours on weeknights
+              <span className="mx-1 rounded-full bg-[#f4f2fe] px-1.5 py-0.5 text-[8px] font-medium text-[#7458e8]">Lund et al., 2010</span>
+              . Because working memory underpins reasoning, comprehension and exam performance,
+              understanding how sleep loss degrades it has direct academic consequences.
+            </p>
+
+            <p className="mt-2 text-[10px] font-semibold text-secondary">2. Literature Review</p>
+            <p className="mt-1 text-[10px] leading-relaxed text-secondary/80">
+              Restricting sleep to five hours across one week produced measurable declines in
+              sustained attention and working-memory accuracy that did not fully recover after two
+              nights of rest
+              <span className="mx-1 rounded-full bg-[#f4f2fe] px-1.5 py-0.5 text-[8px] font-medium text-[#7458e8]">Lo et al., 2016</span>
+              . Neuroimaging links these deficits to reduced prefrontal engagement
+              <span className="mx-1 rounded-full bg-[#f4f2fe] px-1.5 py-0.5 text-[8px] font-medium text-[#7458e8]">Krause et al., 2017</span>
+              .
+            </p>
+            <div className="mt-1.5 space-y-0.5 pl-3">
+              <p className="text-[9.5px] text-secondary/70">2.1&nbsp;&nbsp;Acute versus chronic sleep restriction</p>
+              <p className="text-[9.5px] text-secondary/70">2.2&nbsp;&nbsp;Effects on encoding and retrieval</p>
+              <p className="text-[9.5px] text-secondary/70">
+                2.3&nbsp;&nbsp;<span className="bg-[#7458e8]/10">Recovery sleep and daytime napping</span>
+                <span className="ml-0.5 inline-block h-2.5 w-[1.5px] animate-pulse bg-[#7458e8] align-middle" />
+              </p>
+            </div>
+
+            <p className="mt-2 text-[10px] font-semibold text-secondary">3. Methodology</p>
+            <div className="mt-1 space-y-0.5 pl-3">
+              <p className="text-[9.5px] text-secondary/70">3.1&nbsp;&nbsp;Participants: 64 undergraduates, ages 18–24</p>
+              <p className="text-[9.5px] text-secondary/70">3.2&nbsp;&nbsp;Measures: n-back task, PSQI, sleep diaries</p>
+              <p className="text-[9.5px] text-secondary/70">3.3&nbsp;&nbsp;Procedure: two-week actigraphy monitoring</p>
+            </div>
+
+            <p className="mt-2 text-[10px] font-semibold text-secondary/45">4. Results</p>
+            <p className="mt-0.5 text-[10px] font-semibold text-secondary/45">5. Discussion</p>
+          </div>
+        </div>
+        {/* Status bar */}
+        <div className="flex shrink-0 items-center gap-2.5 border-t border-[#e8ecf2] px-3 py-1.5">
+          <span className="text-[9px] text-secondary/40">Saved just now</span>
+          <span className="text-[9px] text-secondary/40">2,431 words</span>
+          <span className="text-[9px] text-secondary/40">APA 7</span>
+          <span className="ml-auto rounded-full bg-[#eafaf1] px-1.5 py-0.5 text-[8px] text-[#0e9f6e]">Plagiarism: 0 issues</span>
         </div>
       </div>
     </div>
@@ -467,9 +530,6 @@ const UserCursor = () => (
         strokeLinejoin="round"
       />
     </svg>
-    <span className="whitespace-nowrap rounded-full bg-[#f65c9c] px-2.5 py-1 text-[11px] font-medium text-white shadow-sm">
-      Sofia P.
-    </span>
   </div>
 );
 
@@ -530,13 +590,7 @@ const LovedBySentence = () => {
 
 const Hero = () => {
   const rootRef = useRef<HTMLElement>(null);
-  const leftRef = useRef<HTMLElement>(null);
-  const rightRef = useRef<HTMLElement>(null);
 
-  useSlightlyMoveOnMouseMove(rootRef, [
-    { ref: leftRef, shift: 12 },
-    { ref: rightRef, shift: 10 },
-  ]);
 
   return (
     <section ref={rootRef} className="relative isolate overflow-hidden pt-[150px] lp:pt-[220px]">
@@ -627,25 +681,7 @@ const Hero = () => {
           </RevealAnimation>
         </div>
 
-        <figure
-          ref={leftRef}
-          className="absolute top-[57%] left-[2%] z-30 hidden h-14 will-change-transform md:block xl:top-[50%] xl:left-[-5%] 2xl:left-[-8%]"
-        >
-          <RevealAnimation delay={0.5} direction="left" offset={50}>
-            <div className="size-full">
-              <Image src={leftElement} alt="left-elements" className="size-full object-cover" />
-            </div>
-          </RevealAnimation>
-        </figure>
 
-        <figure
-          ref={rightRef}
-          className="absolute top-[59%] right-[8%] z-30 hidden will-change-transform md:block xl:top-[42%] xl:right-[-3%] 2xl:right-[-5%]"
-        >
-          <RevealAnimation delay={0.6} direction="right" offset={50}>
-            <UserCursor />
-          </RevealAnimation>
-        </figure>
       </div>
 
       <RevealAnimation delay={0.5} instant>
