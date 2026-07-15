@@ -3,6 +3,17 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
+  async redirects() {
+    return [
+      {
+        // Old URL, may be indexed/bookmarked — canonical page lives at
+        // /features/plagiarism-checker.
+        source: '/features/ai-plagiarism-checker',
+        destination: '/features/plagiarism-checker',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     qualities: [100, 75],
     remotePatterns: [

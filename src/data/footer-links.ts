@@ -48,7 +48,7 @@ export const footerNavColumns: FooterLinkColumn[] = [
     links: [
       { label: 'Academic Research', href: '/features/academic-research' },
       { label: 'AI Image Generator', href: '/features/image' },
-      { label: 'AI Plagiarism Checker', href: '/features/ai-plagiarism-checker' },
+      { label: 'AI Plagiarism Checker', href: '/features/plagiarism-checker' },
       { label: 'AI Audio Generator', href: '/features/audio' },
       { label: 'AI Presentation / Slides', href: '/features/presentation' },
       { label: 'AI Essay Writer', href: '/features/essay-writer' },

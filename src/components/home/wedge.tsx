@@ -208,7 +208,7 @@ const capabilities = [
     headline: 'Catch issues before you submit',
     description:
       'Scan millions of online sources in seconds and catch duplicate or unoriginal content before it becomes a problem.',
-    href: '/features/essay-writer',
+    href: '/features/plagiarism-checker',
     Icon: FileSearch,
     Demo: PlagiarismDemo,
   },
