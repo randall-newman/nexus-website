@@ -31,6 +31,7 @@ const routes = [
   '/features/presentation',
   '/features/skills',
   '/features/plagiarism-checker',
+  '/features/connectors',
   '/features/image',
   '/features/audio',
   '/features/video',

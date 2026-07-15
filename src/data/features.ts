@@ -137,6 +137,15 @@ export const features: FeatureItem[] = [
     iconClass: 'ns-shape-13',
     built: true,
   },
+  {
+    title: 'Connectors',
+    description: 'Link Nexus AI to your apps so it works with your real data.',
+    href: '/features/connectors',
+    theme: 'Platform integrations',
+    audiences: ['Professionals', 'Teams'],
+    iconClass: 'ns-shape-11',
+    built: true,
+  },
 ];
 
 export const featureThemes: FeatureItem['theme'][] = [
