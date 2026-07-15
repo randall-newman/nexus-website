@@ -1,9 +1,9 @@
 import { generateMetadata } from '@/src/utils/generateMetaData';
 import { Metadata } from 'next';
 
-const HOMEPAGE_TITLE = 'Nexus AI | The AI Workspace That Finishes Your Work';
+const HOMEPAGE_TITLE = 'Nexus AI | AI Writing, Research, Images, Decks & Code';
 const HOMEPAGE_DESCRIPTION =
-  'Nexus AI is your all-in-one AI workspace for writing, research, chat, and creative work. Use AI File Chat, Academic Research, AI Essay Writer and Artifacts to turn ideas into finished documents, decks, images and code.';
+  'Nexus AI is an all-in-one AI platform for writing, research, content creation and planning. Create documents, decks, images, videos and code in minutes. Start free.';
 
 export const metadata: Metadata = {
   ...generateMetadata(HOMEPAGE_TITLE, HOMEPAGE_DESCRIPTION, '/'),
