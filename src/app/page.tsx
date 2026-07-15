@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 };
 
 import Audience from '@/src/components/home/audience';
-import DownloadsStrip from '@/src/components/home/downloads-strip';
 import FAQ, { faqItems } from '@/src/components/home/faq';
 import Hero from '@/src/components/home/hero';
 import Pillars from '@/src/components/home/pillars';
@@ -40,7 +39,6 @@ const Page = () => {
       <Wedge />
       <Audience />
       <Security />
-      <DownloadsStrip />
       <PricingTeaser />
       <WorldMap />
       <TestimonialTeaser />
