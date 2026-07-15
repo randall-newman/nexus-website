@@ -565,14 +565,22 @@ const Hero = () => {
                 </RevealAnimation>
                 {/* RevealAnimation (not TextReveal): SplitText freezes line
                     breaks at mount, which re-wraps mid-sentence on mobile
-                    resizes. This keeps the paragraph one natural text flow. */}
+                    resizes. Separate copy per device: shorter on mobile,
+                    sentence-per-line on desktop. */}
                 <RevealAnimation delay={0.2}>
-                  <p className="text-tagline-1 md:text-tagline-new mx-auto max-w-[700px] lg:max-w-[920px]">
-                    Nexus AI is your all-in-one AI platform for writing, research, content creation
-                    and planning. <br className="hidden lg:block" />
-                    Generate polished documents, presentations, images, videos, code and reports in
-                    minutes.
-                  </p>
+                  <div>
+                    <p className="text-tagline-1 md:text-tagline-new mx-auto max-w-[700px] lg:hidden">
+                      Nexus AI is your all-in-one AI platform for writing, research, design, and
+                      planning. Turn ideas into finished documents, decks, images, reports, and
+                      more.
+                    </p>
+                    <p className="text-tagline-new mx-auto hidden max-w-[920px] lg:block">
+                      Nexus AI is your all-in-one AI platform for writing, research, content
+                      creation and planning. <br />
+                      Generate polished documents, presentations, images, videos, code and reports
+                      in minutes.
+                    </p>
+                  </div>
                 </RevealAnimation>
               </div>
 
