@@ -4,14 +4,16 @@ import { TextReveal } from '@/src/components/animation/text-reveal';
 import { BadgePrimary } from '@/src/components/shared/ui/badge';
 import Image from 'next/image';
 
+// Positions are eyeballed against the perspective-skewed dotted map image
+// (public/images/nexus-world-map.png), not real geo coordinates.
 const flags = [
-  { flag: '🇨🇦', label: 'Canada',       top: '28%', left: '17%', delay: '0s'   },
-  { flag: '🇺🇸', label: 'USA',          top: '40%', left: '20%', delay: '0.3s' },
-  { flag: '🇬🇧', label: 'UK',           top: '26%', left: '46%', delay: '0.6s' },
-  { flag: '🇿🇦', label: 'South Africa', top: '74%', left: '52%', delay: '0.9s' },
-  { flag: '🇮🇳', label: 'India',        top: '47%', left: '67%', delay: '1.2s' },
-  { flag: '🇨🇳', label: 'China',        top: '35%', left: '75%', delay: '1.5s' },
-  { flag: '🇦🇺', label: 'Australia',    top: '74%', left: '83%', delay: '1.8s' },
+  { flag: '🇨🇦', label: 'Canada',       top: '21%', left: '22%', delay: '0s'   },
+  { flag: '🇺🇸', label: 'USA',          top: '38%', left: '23%', delay: '0.3s' },
+  { flag: '🇬🇧', label: 'UK',           top: '25%', left: '47%', delay: '0.6s' },
+  { flag: '🇿🇦', label: 'South Africa', top: '80%', left: '57%', delay: '0.9s' },
+  { flag: '🇮🇳', label: 'India',        top: '48%', left: '75%', delay: '1.2s' },
+  { flag: '🇨🇳', label: 'China',        top: '30%', left: '82%', delay: '1.5s' },
+  { flag: '🇦🇺', label: 'Australia',    top: '86%', left: '93%', delay: '1.8s' },
 ];
 
 const WorldMap = () => {
@@ -53,8 +55,11 @@ const WorldMap = () => {
                 role="img"
                 aria-label={item.label}
               >
-                <span className="text-2xl drop-shadow-md leading-none">{item.flag}</span>
-                <span className="mt-0.5 hidden sm:block whitespace-nowrap rounded-full bg-white/80 px-1.5 py-0.5 text-[9px] font-medium text-secondary/60 shadow-sm backdrop-blur-sm leading-tight">
+                {/* Label is absolutely positioned so the anchored box is the
+                    flag alone — keeps the pin on the same map spot whether or
+                    not the label renders (it's hidden below sm). */}
+                <span className="text-base sm:text-xl md:text-2xl drop-shadow-md leading-none">{item.flag}</span>
+                <span className="absolute top-full mt-0.5 hidden sm:block whitespace-nowrap rounded-full bg-white/80 px-1.5 py-0.5 text-[9px] font-medium text-secondary/60 shadow-sm backdrop-blur-sm leading-tight">
                   {item.label}
                 </span>
               </span>
