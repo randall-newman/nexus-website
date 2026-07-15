@@ -8,7 +8,6 @@ import heroBg from '@/public/images/nexus-ai-hero.jpg';
 import leftElement from '@/public/images/ns-img-27.svg';
 import CounterNumberOnScroll from '@/src/components/animation/counter-number-on-scroll';
 import RevealAnimation from '@/src/components/animation/reveal-animation';
-import { TextReveal } from '@/src/components/animation/text-reveal';
 import { ArrowUpIcon } from '@/src/components/shared/icon';
 import AvatarItem from '@/src/components/shared/ui/avatar-reveal/avatar-item';
 import AvatarReveal from '@/src/components/shared/ui/avatar-reveal/avatar-reveal';
@@ -40,6 +39,47 @@ const SUGGESTIONS = [
   { label: 'Generate an image', icon: ImageIcon, starter: 'Generate an image of ' },
   { label: 'Write code',       icon: Code2,     starter: 'Write code to ' },
 ];
+
+/* Rotating headline word — the kinds of work Nexus AI finishes for you. */
+const ROTATING_WORDS = [
+  'Work',
+  'Assignments',
+  'Essays',
+  'Videos',
+  'Presentations',
+  'Research',
+  'Reports',
+  'Code',
+  'Designs',
+  'Summaries',
+];
+
+function RotatingWord() {
+  const [idx, setIdx] = useState(0);
+  const [leaving, setLeaving] = useState(false);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setLeaving(true);
+      setTimeout(() => {
+        setIdx((i) => (i + 1) % ROTATING_WORDS.length);
+        setLeaving(false);
+      }, 250);
+    }, 2600);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <span
+      className={cn(
+        'inline-block bg-(image:--color-gradient-logo) bg-clip-text text-transparent transition-all duration-250 ease-out',
+        leaving ? '-translate-y-2 opacity-0' : 'translate-y-0 opacity-100'
+      )}
+    >
+      {ROTATING_WORDS[idx]}
+    </span>
+  );
+}
 
 /* Rotating use-case placeholders — shows people what Nexus AI can do. */
 const PLACEHOLDER_EXAMPLES = [
@@ -513,21 +553,25 @@ const Hero = () => {
           <div className="space-y-8 md:space-y-10 lp:space-y-[70px]">
             <div className="space-y-6">
               <div className="space-y-4">
-                <TextReveal delay={0.1}>
-                  {/* Size capped at heading-2 below 1440px so short laptop
-                      viewports (1366×768, 1536×864) keep the full hero —
-                      including the loved-by row — above the fold. */}
+                {/* RevealAnimation (not TextReveal): SplitText clones the DOM
+                    at mount, which breaks the React-driven rotating word.
+                    Size capped at heading-2 below 1440px so short laptop
+                    viewports (1366×768, 1536×864) keep the full hero —
+                    including the loved-by row — above the fold. */}
+                <RevealAnimation delay={0.1}>
                   <h1 className="text-heading-4 sm:text-heading-3 md:text-heading-2 lp:text-heading-1 mx-auto max-w-[1150px] font-bold">
-                    Write, research, and create. Faster than ever before.
+                    Ultimate AI That Finishes Your <RotatingWord />
                   </h1>
-                </TextReveal>
+                </RevealAnimation>
                 {/* RevealAnimation (not TextReveal): SplitText freezes line
                     breaks at mount, which re-wraps mid-sentence on mobile
                     resizes. This keeps the paragraph one natural text flow. */}
                 <RevealAnimation delay={0.2}>
-                  <p className="text-tagline-1 md:text-tagline-new mx-auto max-w-[700px]">
-                    Nexus AI is your all-in-one AI platform for writing, research, design, and
-                    planning. Turn ideas into finished documents, decks, images, code, and beyond.
+                  <p className="text-tagline-1 md:text-tagline-new mx-auto max-w-[700px] lg:max-w-[920px]">
+                    Nexus AI is your all-in-one AI platform for writing, research, content creation
+                    and planning. <br className="hidden lg:block" />
+                    Generate polished documents, presentations, images, videos, code and reports in
+                    minutes.
                   </p>
                 </RevealAnimation>
               </div>
