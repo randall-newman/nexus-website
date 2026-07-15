@@ -1071,6 +1071,82 @@ export const helpArticles: Article[] = [
       ]},
     ],
   },
+
+  // ── Connectors ──────────────────────────────────────────────────
+  {
+    slug: 'what-are-connectors',
+    category: 'connectors',
+    title: 'What are Connectors?',
+    description: 'How Connectors link Nexus AI to your apps and data, and how to set one up.',
+    readTime: 3,
+    updatedAt: '2026-07-15',
+    content: [
+      { type: 'p', text: 'Connectors link your Nexus AI workspace to the tools you already use — file storage, project trackers, wikis, CRMs and more — so the AI can search your real content and take actions on your behalf. They are built on the Model Context Protocol (MCP), an open standard supported across the AI industry.' },
+      { type: 'h2', text: 'Connecting an app' },
+      { type: 'ol', items: [
+        'Open Nexus AI and go to Settings, then Connectors',
+        'Browse or search the directory for the app you want to link',
+        'Click Connect and approve access in the app\'s own sign-in flow (usually OAuth)',
+        'Start asking questions that use your connected data — no code or setup scripts needed',
+      ]},
+      { type: 'h2', text: 'Permissions and control' },
+      { type: 'ul', items: [
+        'A connector only sees what you explicitly grant during setup',
+        'Consequential actions are surfaced for your approval before they run',
+        'You can disconnect any connector at any time from Settings, which revokes its access immediately',
+      ]},
+      { type: 'callout', variant: 'tip', text: 'Browse the full directory of supported connectors at mynexusai.com/features/connectors.' },
+    ],
+  },
+  {
+    slug: 'submit-your-connector',
+    category: 'connectors',
+    title: 'Submit your connector',
+    description: 'How to get your MCP connector reviewed and listed in the Nexus AI directory.',
+    readTime: 5,
+    updatedAt: '2026-07-15',
+    content: [
+      { type: 'p', text: 'The Nexus AI Connectors directory is a collection of high-quality, vetted MCP servers that are helpful and safe for users. Anyone can build a connector, but only submissions that meet the review standards on this page are listed in the directory.' },
+      { type: 'h2', text: 'What you can submit' },
+      { type: 'ul', items: [
+        'Remote MCP servers — internet-hosted servers that provide tools and data to Nexus AI',
+        'Data connectors — read-only servers that expose searchable content such as documents or records',
+        'Action connectors — servers whose tools create, update or send things on the user\'s behalf',
+      ]},
+      { type: 'h2', text: 'Submission requirements' },
+      { type: 'ol', items: [
+        'Security: your server must be hosted over HTTPS and meet standard security practices',
+        'Authentication: use OAuth 2.0 for any service that requires a user account',
+        'Tool annotations: every tool needs a clear title and must declare whether it is read-only or can modify data',
+        'Privacy policy: provide an HTTPS link to a privacy policy covering data collection, usage, storage, third-party sharing, retention and a contact address',
+        'Documentation: provide clear setup and usage instructions users can follow without your help',
+      ]},
+      { type: 'callout', variant: 'warning', text: 'Submissions with a missing or incomplete privacy policy are rejected without review. Check this first.' },
+      { type: 'h2', text: 'What to prepare before you submit' },
+      { type: 'ul', items: [
+        'Your server URL and transport type (streamable HTTP or SSE)',
+        'A listing name, short tagline, and description of what your connector does',
+        'One to five categories that describe your connector',
+        'Documentation URL, privacy policy URL and a support contact',
+        'A square icon for the directory listing',
+        'Test account credentials detailed enough for a reviewer to try every tool end to end',
+      ]},
+      { type: 'h2', text: 'How to submit' },
+      { type: 'ol', items: [
+        'Test every tool yourself first, either with MCP Inspector or by adding your server to Nexus AI as a custom connector',
+        'Go to mynexusai.com/features/connectors and click Submit a connector',
+        'Fill in the submission form with the details above',
+        'Our team reviews your submission and emails you the outcome, with feedback if changes are needed',
+      ]},
+      { type: 'h2', text: 'Your responsibilities after listing' },
+      { type: 'ul', items: [
+        'Maintain your connector\'s security and functionality over time',
+        'Respond promptly to any security issues we or users report',
+        'Keep descriptions and documentation accurate as your connector evolves',
+      ]},
+      { type: 'callout', variant: 'note', text: 'Review times vary with queue volume. If you have not heard back within ten business days, reply to your confirmation email and we will chase it up.' },
+    ],
+  },
 ];
 
 export const articleMap = Object.fromEntries(helpArticles.map((a) => [a.slug, a]));

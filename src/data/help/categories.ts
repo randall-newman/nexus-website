@@ -38,6 +38,12 @@ export const helpCategories: HelpCategory[] = [
     icon: '⚡',
   },
   {
+    slug: 'connectors',
+    title: 'Connectors',
+    description: 'Link Nexus AI to your apps, and build or submit your own connector.',
+    icon: '🔌',
+  },
+  {
     slug: 'privacy-security',
     title: 'Privacy & Security',
     description: 'Data handling, account security, and your rights.',
