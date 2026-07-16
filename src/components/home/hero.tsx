@@ -715,7 +715,8 @@ const Hero = () => {
       </div>
 
       <RevealAnimation delay={0.5} instant>
-        <figure className="absolute -bottom-1 left-0 z-20 h-[500px] w-full md:h-[600px] xl:h-[700px]">
+        {/* decorative — must never intercept taps (was blocking the hero CTA on mobile) */}
+        <figure className="pointer-events-none absolute -bottom-1 left-0 z-20 h-[500px] w-full md:h-[600px] xl:h-[700px]">
           <Image src={bottomGradient} alt="bottom-gradient" className="size-full object-cover" />
         </figure>
       </RevealAnimation>
