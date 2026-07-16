@@ -319,7 +319,8 @@ export const PricingPlansGrid = () => {
 
 const PlanComparison = () => {
   return (
-    <section className="pt-20 md:pt-25 lg:pt-39">
+    // pt-32 below lg keeps the heading clear of the fixed navbar on mobile
+    <section className="pt-32 lg:pt-39">
       <div className="main-container">
         <div className="space-y-10 lg:space-y-14">
           <div className="space-y-5 text-center">
@@ -331,7 +332,7 @@ const PlanComparison = () => {
             </TextReveal>
             <TextReveal delay={0.3}>
               <p className="text-background-14/60 mx-auto max-w-[520px] text-lg leading-relaxed">
-                From a free start to unlimited power.
+                No hidden fees, cancel anytime.
                 <br />
                 Choose the plan that matches how you work.
               </p>
