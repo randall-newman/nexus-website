@@ -54,7 +54,7 @@ const Login = () => {
         {/* Form centred vertically */}
         <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-12">
           <div className="mb-8">
-            <h1 className="text-2xl font-bold text-secondary">Access your Nexus AI account</h1>
+            <h1 className="text-2xl font-bold text-secondary">Access your account</h1>
             <p className="mt-1.5 text-[14px] text-secondary/55">
               Log in to your Nexus AI account to continue.
             </p>

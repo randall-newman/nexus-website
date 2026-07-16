@@ -9,6 +9,7 @@ import heroBg from '@/public/images/nexus-ai-hero.jpg';
 import CounterNumberOnScroll from '@/src/components/animation/counter-number-on-scroll';
 import RevealAnimation from '@/src/components/animation/reveal-animation';
 import { ArrowUpIcon } from '@/src/components/shared/icon';
+import { ButtonPrimary } from '@/src/components/shared/ui/button';
 import AvatarItem from '@/src/components/shared/ui/avatar-reveal/avatar-item';
 import AvatarReveal from '@/src/components/shared/ui/avatar-reveal/avatar-reveal';
 import { cn } from '@/src/utils/cn';
@@ -90,6 +91,20 @@ const PLACEHOLDER_EXAMPLES = [
   'Research a topic and draft a cited report...',
 ];
 
+const SparkIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className="size-4"
+    aria-hidden
+  >
+    <path d="M12 2L9.5 9.5L2 12L9.5 14.5L12 22L14.5 14.5L22 12L14.5 9.5L12 2Z" />
+  </svg>
+);
+
+/* Hidden for now in favour of the Get Started CTA — kept for easy re-enable. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function HeroPromptBox() {
   const { status } = useSession();
   const [prompt,       setPrompt]       = useState('');
@@ -639,7 +654,22 @@ const Hero = () => {
               </div>
 
               <RevealAnimation delay={0.3} instant>
-                <HeroPromptBox />
+                <div className="flex justify-center pt-4 md:pt-6">
+                  <Link href="/login" className="inline-block">
+                    <ButtonPrimary
+                      className="mx-auto md:w-fit!"
+                      textClassName="text-center text-nowrap"
+                    >
+                      <span className="flex items-center gap-1.5">
+                        <SparkIcon />
+                        Get Started
+                        <span className="ml-0.5 text-[0.75em] font-normal opacity-60">
+                          It&apos;s free
+                        </span>
+                      </span>
+                    </ButtonPrimary>
+                  </Link>
+                </div>
               </RevealAnimation>
             </div>
 
