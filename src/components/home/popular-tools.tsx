@@ -4,6 +4,9 @@ import { BadgePrimary } from '@/src/components/shared/ui/badge';
 import { ButtonWhite } from '@/src/components/shared/ui/button';
 import cloudArt from '@/public/images/opai-img-137.jpg';
 import waveArt from '@/public/images/opai-img-138.jpg';
+import slideTemplate1 from '@/public/images/nexus-slide-template-1.png';
+import slideTemplate2 from '@/public/images/nexus-slide-template-2.png';
+import slideTemplate3 from '@/public/images/nexus-slide-template-3.png';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -73,35 +76,30 @@ const ImagePreview = () => (
   </div>
 );
 
+const slideTemplates = [slideTemplate1, slideTemplate2, slideTemplate3];
+
 const PresentationPreview = () => (
-  <div className="relative size-full bg-[#eef3fe] p-5">
-    <div className="mx-auto max-w-[240px]">
-      <div className="rounded-lg bg-white p-3.5 shadow-[0_8px_30px_rgba(0,12,96,0.10)] transition-transform duration-500 group-hover:-translate-y-1">
-        <div className="h-2 w-2/3 rounded bg-[#241d55]/80" />
-        <div className="mt-1.5 h-1.5 w-1/3 rounded bg-[#241d55]/20" />
-        <div className="mt-3 flex h-[52px] items-end gap-1.5">
-          {[35, 60, 45, 80, 65, 95].map((h, i) => (
-            <div
-              key={i}
-              style={{ height: `${h}%` }}
-              className="flex-1 origin-bottom rounded-t bg-[linear-gradient(180deg,#4c7df0,#7458e8)] transition-transform duration-500 group-hover:scale-y-110"
-            />
-          ))}
-        </div>
-      </div>
-      <div className="mt-2 flex gap-1.5">
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="h-8 flex-1 rounded bg-white/80 p-1 shadow-sm transition-transform duration-500 group-hover:translate-y-[-2px]"
-            style={{ transitionDelay: `${i * 60}ms` }}
-          >
-            <div className="h-1 w-2/3 rounded bg-[#241d55]/25" />
-            <div className="mt-1 h-3 rounded-sm bg-[#4c7df0]/15" />
-          </div>
-        ))}
-      </div>
+  <div className="relative flex size-full items-center bg-[#eef3fe] p-5">
+    <div className="relative mx-auto aspect-video w-full max-w-[250px] overflow-hidden rounded-lg shadow-[0_8px_30px_rgba(0,12,96,0.12)] transition-transform duration-500 group-hover:-translate-y-1">
+      {slideTemplates.map((slide, i) => (
+        <Image
+          key={i}
+          src={slide}
+          alt={`AI generated presentation slide design ${i + 1}`}
+          fill
+          sizes="250px"
+          className="rounded-lg object-cover opacity-0"
+          style={{ animation: `slideCycle 9s linear infinite`, animationDelay: `${i * 3}s` }}
+        />
+      ))}
     </div>
+    <style>{`
+      @keyframes slideCycle {
+        0% { opacity: 0; }
+        5%, 33% { opacity: 1; }
+        40%, 100% { opacity: 0; }
+      }
+    `}</style>
   </div>
 );
 
@@ -207,12 +205,12 @@ const PopularTools = () => {
           </div>
 
           <RevealAnimation delay={0.5} className="flex justify-center">
-            <Link href="/features">
+            <Link href="/signup">
               <ButtonWhite
                 className="mx-auto w-[80%]! md:w-fit!"
                 textClassName="text-center text-nowrap max-sm:flex-1 max-sm:pr-8!"
               >
-                Explore all features
+                Try it now
               </ButtonWhite>
             </Link>
           </RevealAnimation>
