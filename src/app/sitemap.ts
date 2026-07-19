@@ -32,6 +32,7 @@ const routes = [
   '/features/skills',
   '/features/plagiarism-checker',
   '/features/connectors',
+  '/features/search',
   '/features/image',
   '/features/audio',
   '/features/video',

@@ -146,6 +146,15 @@ export const features: FeatureItem[] = [
     iconClass: 'ns-shape-11',
     built: true,
   },
+  {
+    title: 'AI Search',
+    description: 'Real-time answers from the live web, with a source on every claim.',
+    href: '/features/search',
+    theme: 'Research and writing',
+    audiences: ['Students', 'Professionals', 'Creators'],
+    iconClass: 'ns-shape-5',
+    built: true,
+  },
 ];
 
 export const featureThemes: FeatureItem['theme'][] = [

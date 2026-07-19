@@ -9,6 +9,7 @@
 - [Chat](https://mynexusai.com/products/chat): The core chat surface, with Folders and model routing.
 - [Features overview](https://mynexusai.com/features): Every feature/use case Nexus AI supports.
 - [AI File Chat](https://mynexusai.com/features/ai-file-chat): Chat with uploaded PDFs, Word docs and spreadsheets, with sourced answers.
+- [AI Search](https://mynexusai.com/features/search): Real-time web search with a citation on every claim; findings flow into documents.
 - [Academic Research](https://mynexusai.com/features/academic-research): Research-to-document workflow with citations (APA/MLA/Chicago).
 - [AI Essay Writer](https://mynexusai.com/features/essay-writer): Essay writing with an academic-integrity-first framing.
 - [Artifacts](https://mynexusai.com/features/artifacts): Preview, edit and export AI-generated documents and slides.
