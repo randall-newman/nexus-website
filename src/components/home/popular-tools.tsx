@@ -204,7 +204,7 @@ const PopularTools = () => {
             ))}
           </div>
 
-          <RevealAnimation delay={0.5} className="flex justify-center">
+          <RevealAnimation delay={0.5} asChild={false} className="flex justify-center">
             <Link href="/signup" className="inline-block w-[80%] md:w-auto">
               <ButtonWhite
                 className="w-full! md:w-fit!"
