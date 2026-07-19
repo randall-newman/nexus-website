@@ -12,6 +12,38 @@ const nextConfig: NextConfig = {
         destination: '/features/plagiarism-checker',
         permanent: true,
       },
+
+      /* ── Legacy WordPress URLs (pre-migration). Google indexed these for
+         years; without 301s they 404 and their rankings evaporate. Mapped
+         to the closest current equivalent. ─────────────────────────── */
+
+      // Old root-level feature landing pages
+      { source: '/ai-article-writer', destination: '/features/essay-writer', permanent: true },
+      { source: '/ai-rewriter', destination: '/features/essay-writer', permanent: true },
+      { source: '/code-generator', destination: '/products/code', permanent: true },
+      { source: '/file-chat', destination: '/features/ai-file-chat', permanent: true },
+
+      // Old blog posts with a sensible current home
+      { source: '/blog/how-to-write-in-apa-format', destination: '/features/academic-research', permanent: true },
+      { source: '/blog/how-ai-is-transforming-academic-writing', destination: '/features/academic-research', permanent: true },
+      { source: '/blog/master-academics-with-nexus-ai-at-harvard', destination: '/solutions/education', permanent: true },
+      { source: '/blog/using-nexus-ai-at-uct', destination: '/solutions/education', permanent: true },
+      { source: '/blog/nexus-vs-jenni', destination: '/features', permanent: true },
+
+      // WordPress taxonomy/feed/pagination URLs → blog index
+      { source: '/category/:path*', destination: '/blog', permanent: true },
+      { source: '/tag/:path*', destination: '/blog', permanent: true },
+      { source: '/author/:path*', destination: '/blog', permanent: true },
+      { source: '/blog/category/:path*', destination: '/blog', permanent: true },
+      { source: '/blog/tag/:path*', destination: '/blog', permanent: true },
+      { source: '/blog/author/:path*', destination: '/blog', permanent: true },
+      { source: '/blog/page/:n', destination: '/blog', permanent: true },
+      { source: '/feed', destination: '/blog', permanent: true },
+      { source: '/comments/feed', destination: '/blog', permanent: true },
+
+      // Yoast sitemap names Search Console may still poll
+      { source: '/sitemap_index.xml', destination: '/sitemap.xml', permanent: true },
+      { source: '/:name-sitemap.xml', destination: '/sitemap.xml', permanent: true },
     ];
   },
   images: {

@@ -10,6 +10,11 @@ interface Props {
 
 const solutionMap = Object.fromEntries(solutionsData.map((s) => [s.slug, s]));
 
+// All valid slugs are known at build time; anything else must be a real
+// HTTP 404 (Next streams metadata, so notFound() thrown there arrives too
+// late to change the status code and produced soft-404 200s).
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return solutionsData.map((s) => ({ slug: s.slug }));
 }

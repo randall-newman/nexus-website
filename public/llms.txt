@@ -10,7 +10,7 @@
 - [Features overview](https://mynexusai.com/features): Every feature/use case Nexus AI supports.
 - [AI File Chat](https://mynexusai.com/features/ai-file-chat): Chat with uploaded PDFs, Word docs and spreadsheets, with sourced answers.
 - [Academic Research](https://mynexusai.com/features/academic-research): Research-to-document workflow with citations (APA/MLA/Chicago).
-- [AI Essay Writer](https://mynexusai.com/features/ai-essay-writer): Essay writing with an academic-integrity-first framing.
+- [AI Essay Writer](https://mynexusai.com/features/essay-writer): Essay writing with an academic-integrity-first framing.
 - [Artifacts](https://mynexusai.com/features/artifacts): Preview, edit and export AI-generated documents and slides.
 
 ## Pricing

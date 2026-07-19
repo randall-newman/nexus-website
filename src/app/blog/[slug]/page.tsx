@@ -9,6 +9,11 @@ import getMarkDownData from '@/src/utils/getMarkDownData';
 import { articleJsonLd, breadcrumbJsonLd } from '@/src/utils/structured-data';
 import type { Metadata } from 'next';
 
+// All valid slugs are known at build time; anything else must be a real
+// HTTP 404 (Next streams metadata, so notFound() thrown there arrives too
+// late to change the status code and produced soft-404 200s).
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const posts = getMarkDownData<BlogPost>('src/data/blog', false, 'order');
   return posts.map((post) => ({ slug: post.slug }));

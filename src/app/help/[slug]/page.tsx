@@ -11,6 +11,11 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+// All valid slugs are known at build time; anything else must be a real
+// HTTP 404 (Next streams metadata, so notFound() thrown there arrives too
+// late to change the status code and produced soft-404 200s).
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return helpArticles.map((article) => ({ slug: article.slug }));
 }

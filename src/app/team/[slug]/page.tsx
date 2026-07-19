@@ -7,6 +7,11 @@ import getMarkDownContent from '@/src/utils/getMarkDownContent';
 import getMarkDownData from '@/src/utils/getMarkDownData';
 import type { Metadata } from 'next';
 
+// All valid slugs are known at build time; anything else must be a real
+// HTTP 404 (Next streams metadata, so notFound() thrown there arrives too
+// late to change the status code and produced soft-404 200s).
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const members = getMarkDownData<TeamMember>('src/data/team', false, 'order');
   return members.map((member) => ({ slug: member.slug }));
