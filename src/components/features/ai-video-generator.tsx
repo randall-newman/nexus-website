@@ -82,7 +82,7 @@ function HeroVideoMock() {
       <div className="p-3">
         <div className="relative w-full overflow-hidden rounded-xl aspect-video bg-black/40">
           <video
-            src="/videos/ai-video-generator/video-4.webm"
+            src="/videos/ai-video-generator/video-4-mini.mp4"
             autoPlay
             muted
             loop
@@ -124,7 +124,7 @@ const videoCards = [
   { src: '/videos/ai-video-generator/video-1.webm', style: 'Cinematic', prompt: 'Aerial city at golden hour, neon reflections on glass' },
   { src: '/videos/ai-video-generator/video-2.webm', style: 'Character', prompt: 'AI persona walking through a fashion editorial scene' },
   { src: '/videos/ai-video-generator/video-3.webm', style: 'Photorealistic', prompt: 'Close-up product reveal with dramatic lighting' },
-  { src: '/videos/ai-video-generator/video-4.webm', style: 'Motion FX', prompt: 'Abstract particle explosion, slow-motion effect' },
+  { src: '/videos/ai-video-generator/video-4-mini.mp4', style: 'Motion FX', prompt: 'Abstract particle explosion, slow-motion effect' },
   { src: '/videos/ai-video-generator/video-5.webm', style: 'Digital Art', prompt: 'Surreal landscape transformation, watercolour to 3D' },
   { src: '/videos/ai-video-generator/video-6.webm', style: 'Short-form', prompt: 'Energetic transition reel optimised for TikTok' },
   { src: '/videos/ai-video-generator/video-7.webm', style: 'Fashion', prompt: 'Slow-motion editorial — model walking a sunlit catwalk' },

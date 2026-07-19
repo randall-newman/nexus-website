@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 import Audience from '@/src/components/home/audience';
 import FAQ, { faqItems } from '@/src/components/home/faq';
 import Hero from '@/src/components/home/hero';
-import Pillars from '@/src/components/home/pillars';
+import PopularTools from '@/src/components/home/popular-tools';
 import PricingTeaser from '@/src/components/home/pricing-teaser';
 import Security from '@/src/components/home/security';
 import TestimonialTeaser from '@/src/components/home/testimonial-teaser';
@@ -35,7 +35,7 @@ const Page = () => {
       />
       <Hero />
       <TrustedBy />
-      <Pillars />
+      <PopularTools />
       <Wedge />
       <Audience />
       <Security />
