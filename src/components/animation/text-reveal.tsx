@@ -4,7 +4,8 @@ import { Slot } from '@radix-ui/react-slot';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import SplitText from 'gsap/SplitText';
-import { ComponentPropsWithoutRef, RefCallback, isValidElement, useLayoutEffect, useRef } from 'react';
+import { useResolvedSlotChild } from '@/src/utils/resolve-slot-child';
+import { ComponentPropsWithoutRef, RefCallback, useLayoutEffect, useRef } from 'react';
 
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
@@ -13,10 +14,13 @@ type TextRevealProps = {
   delay?: number;
 } & ComponentPropsWithoutRef<'div'>;
 
-export function TextReveal({ asChild = true, children, delay = 0, ...props }: TextRevealProps) {
-  // Same guard as RevealAnimation: Radix Slot 1.3 throws on transient
-  // non-single-element children during RSC streaming; fall back to a div.
-  const Component = asChild && isValidElement(children) ? Slot : 'div';
+export function TextReveal({ asChild = true, children: rawChildren, delay = 0, ...props }: TextRevealProps) {
+  // Resolve streamed lazy children before deciding Slot vs div, so the
+  // choice matches between server render and client hydration; div is the
+  // fallback for genuinely non-single-element children (Radix Slot 1.3
+  // throws on those).
+  const { child: children, canSlot } = useResolvedSlotChild(rawChildren);
+  const Component = asChild && canSlot ? Slot : 'div';
   const ref = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {

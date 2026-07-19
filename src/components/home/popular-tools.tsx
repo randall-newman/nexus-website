@@ -80,14 +80,14 @@ const slideTemplates = [slideTemplate1, slideTemplate2, slideTemplate3];
 
 const PresentationPreview = () => (
   <div className="relative flex size-full items-center bg-[#eef3fe] p-5">
-    <div className="relative mx-auto aspect-video w-full max-w-[250px] overflow-hidden rounded-lg shadow-[0_8px_30px_rgba(0,12,96,0.12)] transition-transform duration-500 group-hover:-translate-y-1">
+    <div className="relative mx-auto aspect-video w-full max-w-[290px] overflow-hidden rounded-lg shadow-[0_8px_30px_rgba(0,12,96,0.12)] transition-transform duration-500 group-hover:-translate-y-1">
       {slideTemplates.map((slide, i) => (
         <Image
           key={i}
           src={slide}
           alt={`AI generated presentation slide design ${i + 1}`}
           fill
-          sizes="250px"
+          sizes="290px"
           className="rounded-lg object-cover opacity-0"
           style={{ animation: `slideCycle 9s linear infinite`, animationDelay: `${i * 3}s` }}
         />
@@ -205,12 +205,12 @@ const PopularTools = () => {
           </div>
 
           <RevealAnimation delay={0.5} className="flex justify-center">
-            <Link href="/signup">
+            <Link href="/signup" className="inline-block w-[80%] md:w-auto">
               <ButtonWhite
-                className="mx-auto w-[80%]! md:w-fit!"
+                className="w-full! md:w-fit!"
                 textClassName="text-center text-nowrap max-sm:flex-1 max-sm:pr-8!"
               >
-                Try it now
+                Try Nexus AI now
               </ButtonWhite>
             </Link>
           </RevealAnimation>

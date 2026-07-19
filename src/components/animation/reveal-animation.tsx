@@ -5,7 +5,8 @@ import { useGSAP } from '@gsap/react';
 import { Slot } from '@radix-ui/react-slot';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ComponentPropsWithoutRef, RefCallback, isValidElement, useRef } from 'react';
+import { useResolvedSlotChild } from '@/src/utils/resolve-slot-child';
+import { ComponentPropsWithoutRef, RefCallback, useRef } from 'react';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -26,7 +27,7 @@ type RevealAnimationProps = {
 
 export default function RevealAnimation({
   asChild = true,
-  children,
+  children: rawChildren,
   duration = 0.6,
   delay = 0,
   offset = 60,
@@ -40,11 +41,12 @@ export default function RevealAnimation({
   animationType = 'from',
   ...props
 }: RevealAnimationProps) {
-  // Radix Slot 1.3 throws ("failed to slot onto its children") when children
-  // isn't a plain single element — which can happen transiently while Next
-  // streams RSC children (lazy holes / array-wrapped nodes). Only slot when
-  // it's provably safe; otherwise render a real wrapper instead of crashing.
-  const Component = asChild && isValidElement(children) ? Slot : 'div';
+  // Resolve streamed lazy children before deciding Slot vs div, so the
+  // choice matches between server render and client hydration; div is the
+  // fallback for genuinely non-single-element children (Radix Slot 1.3
+  // throws on those).
+  const { child: children, canSlot } = useResolvedSlotChild(rawChildren);
+  const Component = asChild && canSlot ? Slot : 'div';
   const elementRef = useRef<HTMLElement | null>(null);
 
   const setRef: RefCallback<Element> = (node) => {
