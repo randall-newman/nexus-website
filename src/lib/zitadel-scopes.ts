@@ -16,3 +16,22 @@ export const GOOGLE_SIGNIN_AUTH_PARAMS = {
 // Where users land after completing auth. Must be allowed by the redirect
 // callback in src/lib/auth.ts. Logout intentionally still returns to '/'.
 export const POST_LOGIN_URL = 'https://app.mynexusai.com';
+
+// Destination for /upgrade/[plan] once we know where the user should end up.
+export const APP_PLANS_URL = 'https://app.mynexusai.com/plans';
+
+// Validates a `next` redirect target before it is ever handed to signIn's
+// callbackUrl: only a same-site path or a URL under the app origin is
+// accepted, so a crafted `?next=` query can't be used as an open redirect.
+// (auth.ts's NextAuth redirect callback allows the same origin, but that
+// runs after this value is already trusted client-side, so we gate here too.)
+export function getValidatedNextUrl(next: string | null): string | null {
+  if (!next) return null;
+  if (next.startsWith('/')) return next;
+  try {
+    if (new URL(next).origin === 'https://app.mynexusai.com') return next;
+  } catch {
+    // malformed URL — fall through to reject
+  }
+  return null;
+}

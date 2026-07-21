@@ -4,8 +4,9 @@ import mainLogo from '@/public/images/logo/main-logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { GOOGLE_SIGNIN_AUTH_PARAMS, POST_LOGIN_URL } from '@/src/lib/zitadel-scopes';
+import { GOOGLE_SIGNIN_AUTH_PARAMS, POST_LOGIN_URL, getValidatedNextUrl } from '@/src/lib/zitadel-scopes';
 import { signIn } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { AuthRightPanel } from './auth-right-panel';
 
@@ -24,13 +25,18 @@ const GoogleIcon = () => (
 const Login = () => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+  // Set by /upgrade/[plan] when it sends a signed-out visitor here — carries
+  // the plan/billing destination through login so they land on the right
+  // app.mynexusai.com/plans URL instead of the app root.
+  const searchParams = useSearchParams();
+  const callbackUrl = getValidatedNextUrl(searchParams.get('next')) ?? POST_LOGIN_URL;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     // login_hint must go in signIn's third argument (authorizationParams) —
     // extra keys in the second argument are not forwarded to the authorize URL.
-    await signIn('verbosec-account', { callbackUrl: POST_LOGIN_URL }, { login_hint: email });
+    await signIn('verbosec-account', { callbackUrl }, { login_hint: email });
   }
 
   return (
@@ -64,7 +70,7 @@ const Login = () => {
           <div className="space-y-3">
             <button
               type="button"
-              onClick={() => signIn('verbosec-account', { callbackUrl: POST_LOGIN_URL }, GOOGLE_SIGNIN_AUTH_PARAMS)}
+              onClick={() => signIn('verbosec-account', { callbackUrl }, GOOGLE_SIGNIN_AUTH_PARAMS)}
               className="flex w-full items-center justify-center gap-3 rounded-xl border border-stroke-3 bg-white px-4 py-3 text-sm font-medium text-secondary shadow-sm transition-all hover:border-secondary/20 hover:shadow-md"
             >
               <GoogleIcon />
