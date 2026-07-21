@@ -34,7 +34,7 @@ const chatbotPlans = [
     ],
     featured: false,
     note: null,
-    href: 'https://app.mynexusai.com/upgrade/chatbot-starter',
+    href: '/upgrade/chatbot-starter',
   },
   {
     name: 'Growth',
@@ -53,7 +53,7 @@ const chatbotPlans = [
     ],
     featured: true,
     note: null,
-    href: 'https://app.mynexusai.com/upgrade/chatbot-growth',
+    href: '/upgrade/chatbot-growth',
   },
   {
     name: 'Business',
@@ -72,7 +72,7 @@ const chatbotPlans = [
     ],
     featured: false,
     note: 'Bundled in Enterprise plan',
-    href: 'https://app.mynexusai.com/upgrade/chatbot-business',
+    href: '/upgrade/chatbot-business',
   },
 ];
 
@@ -144,12 +144,7 @@ export default function ChatbotPricingPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href={plan.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
+                  <Link href={plan.href} className="block">
                     {plan.featured ? (
                       <ButtonPrimary
                         className="w-full"

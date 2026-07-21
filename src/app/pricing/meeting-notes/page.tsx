@@ -139,12 +139,7 @@ export default function MeetingNotesPricingPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href="https://app.mynexusai.com/upgrade/meeting-notes"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
+                  <Link href="/upgrade/meeting-notes" className="block">
                     {plan.featured ? (
                       <ButtonPrimary
                         className="w-full"

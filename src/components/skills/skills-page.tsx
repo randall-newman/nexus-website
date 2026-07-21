@@ -610,7 +610,7 @@ const SkillsPage = () => {
                 </TextReveal>
               </div>
               <RevealAnimation delay={0.4} asChild={false} className="flex flex-wrap gap-3">
-                <Link href="https://app.mynexusai.com/upgrade/premium">
+                <Link href="/upgrade/premium">
                   <ButtonPrimary textClassName="text-nowrap">Start building skills</ButtonPrimary>
                 </Link>
                 <Link href="/pricing">
@@ -803,7 +803,7 @@ const SkillsPage = () => {
                 asChild={false}
               >
                 <Link
-                  href="https://app.mynexusai.com/upgrade/premium"
+                  href="/upgrade/premium"
                   className="group flex flex-col items-center justify-center gap-y-3 rounded-2xl border-2 border-dashed border-stroke-3 bg-transparent p-5 text-center transition-all hover:border-secondary/30 hover:bg-white"
                 >
                   <div className="flex size-10 items-center justify-center rounded-xl bg-secondary/5">
@@ -969,14 +969,14 @@ const SkillsPage = () => {
                   plan: 'Premium',
                   skills: '50 Skills',
                   note: 'Full skill builder, all 6 categories, apply to any product',
-                  cta: { label: 'Start with Premium', href: 'https://app.mynexusai.com/upgrade/premium' },
+                  cta: { label: 'Start with Premium', href: '/upgrade/premium' },
                   highlight: true,
                 },
                 {
                   plan: 'Ultimate',
                   skills: 'Unlimited Skills',
                   note: 'Everything in Premium + team skill sharing and Skills Manager',
-                  cta: { label: 'Get Ultimate', href: 'https://app.mynexusai.com/upgrade/ultimate' },
+                  cta: { label: 'Get Ultimate', href: '/upgrade/ultimate' },
                   highlight: false,
                 },
               ].map((tier) => (

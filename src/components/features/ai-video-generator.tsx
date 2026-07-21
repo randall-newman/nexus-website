@@ -429,7 +429,7 @@ const AiVideoGenerator = () => {
                 </TextReveal>
               </div>
               <RevealAnimation delay={0.4} asChild={false} className="flex flex-wrap gap-3">
-                <Link href="https://app.mynexusai.com/upgrade/ultimate">
+                <Link href="/upgrade/ultimate">
                   <ButtonPrimary textClassName="text-nowrap">Start generating video</ButtonPrimary>
                 </Link>
                 <Link href="/products">

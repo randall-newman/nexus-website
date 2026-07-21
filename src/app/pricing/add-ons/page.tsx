@@ -113,12 +113,7 @@ export default function CreditsPage() {
                       Best for: {pack.bestFor}
                     </li>
                   </ul>
-                  <Link
-                    href="https://app.mynexusai.com/upgrade/credits"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
+                  <Link href="/upgrade/credits" className="block">
                     {pack.featured ? (
                       <ButtonPrimary
                         className="w-full"

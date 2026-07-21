@@ -11,7 +11,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   ...generateMetadata(
     'Pricing & Plans | Nexus AI',
-    'Compare Nexus AI plans. Free, Premium ($20/month or $16/month billed annually), Ultimate ($100/month or $80/month billed annually), Teams ($30/seat/month) and more.',
+    'Explore Nexus AI plans and pricing, from Free to Premium and Ultimate. Compare features and benefits across every tier to find the subscription that fits how you work.',
     '/pricing'
   ),
 };

@@ -540,7 +540,7 @@ const AiPlagiarismChecker = () => {
                 </TextReveal>
               </div>
               <RevealAnimation delay={0.4} asChild={false} className="flex flex-wrap gap-3">
-                <Link href="https://app.mynexusai.com/upgrade/premium">
+                <Link href="/upgrade/premium">
                   <ButtonPrimary textClassName="text-nowrap">Start with Premium</ButtonPrimary>
                 </Link>
                 <Link href="/features/essay-writer">
@@ -925,7 +925,7 @@ const AiPlagiarismChecker = () => {
                 ))}
               </RevealAnimation>
               <div className="mt-2 flex justify-center">
-                <Link href="https://app.mynexusai.com/upgrade/premium">
+                <Link href="/upgrade/premium">
                   <ButtonWhite textClassName="text-nowrap">Start with Premium</ButtonWhite>
                 </Link>
               </div>

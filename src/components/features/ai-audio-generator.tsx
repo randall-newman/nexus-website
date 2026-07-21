@@ -575,7 +575,7 @@ const AiAudioGenerator = () => {
                 </TextReveal>
               </div>
               <RevealAnimation delay={0.4} asChild={false} className="flex flex-wrap gap-3">
-                <Link href="https://app.mynexusai.com/upgrade/premium">
+                <Link href="/upgrade/premium">
                   <ButtonPrimary textClassName="text-nowrap">Start generating audio</ButtonPrimary>
                 </Link>
                 <Link href="/products">
@@ -811,7 +811,7 @@ const AiAudioGenerator = () => {
                 ))}
               </RevealAnimation>
               <RevealAnimation delay={0.5}>
-                <Link href="https://app.mynexusai.com/upgrade/premium">
+                <Link href="/upgrade/premium">
                   <ButtonPrimary textClassName="text-nowrap">Clone your voice</ButtonPrimary>
                 </Link>
               </RevealAnimation>

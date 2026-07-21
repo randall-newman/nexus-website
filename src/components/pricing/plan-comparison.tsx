@@ -57,7 +57,7 @@ const plans: Plan[] = [
     description: 'Everything you need to finish real work, every day.',
     inheritsFrom: 'Free',
     cta: 'Get Premium',
-    href: 'https://app.mynexusai.com/upgrade/premium',
+    href: '/upgrade/premium',
     dark: true,
     badge: 'Most popular',
     badgeIcon: Sparkles,
@@ -86,7 +86,7 @@ const plans: Plan[] = [
     description: 'Maximum power for people who live in Nexus AI.',
     inheritsFrom: 'Premium',
     cta: 'Get Ultimate',
-    href: 'https://app.mynexusai.com/upgrade/ultimate',
+    href: '/upgrade/ultimate',
     badge: 'Most powerful',
     badgeIcon: Zap,
     rows: [
@@ -112,6 +112,12 @@ const plans: Plan[] = [
 
 function PlanCard({ plan, price, isYearly }: { plan: Plan; price: number; isYearly: boolean }) {
   const BadgeIcon = plan.badgeIcon;
+  // Upgrade links carry the selected billing cycle through to the app;
+  // internal links (/upgrade/..., /signup) never need a new tab.
+  const ctaHref = plan.href.startsWith('/upgrade/')
+    ? `${plan.href}?${isYearly ? 'annual' : 'monthly'}`
+    : plan.href;
+  const isInternal = ctaHref.startsWith('/');
 
   if (plan.dark) {
     return (
@@ -154,7 +160,11 @@ function PlanCard({ plan, price, isYearly }: { plan: Plan; price: number; isYear
           </div>
 
           {/* CTA */}
-          <Link href={plan.href} target="_blank" rel="noopener noreferrer" className="block">
+          <Link
+            href={ctaHref}
+            {...(!isInternal && { target: '_blank', rel: 'noopener noreferrer' })}
+            className="block"
+          >
             <ButtonWhite className="w-full" textClassName="text-center flex-1 px-0! pr-8!">
               {plan.cta}
             </ButtonWhite>
@@ -211,7 +221,11 @@ function PlanCard({ plan, price, isYearly }: { plan: Plan; price: number; isYear
         )}
       </div>
 
-      <Link href={plan.href} target="_blank" rel="noopener noreferrer" className="block mt-6">
+      <Link
+        href={ctaHref}
+        {...(!isInternal && { target: '_blank', rel: 'noopener noreferrer' })}
+        className="block mt-6"
+      >
         <ButtonWhite className="w-full" textClassName="text-center flex-1 px-0! pr-8!">
           {plan.cta}
         </ButtonWhite>
